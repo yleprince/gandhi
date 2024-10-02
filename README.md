@@ -1,6 +1,6 @@
 # Gandhi
 
-Helper to take the order to the Gandhi restaurant at Echirolles
+Helper to take the order to the [Gandhi restaurant](http://www.gandhi-restaurant.fr/index.php/le-midi) at Echirolles
 
 ## How to run
 
