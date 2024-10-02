@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="layout" class="flex flex-col pb-8 h-screen">
+    <h1 class="text-5xl text-white font-extrabold py-6 px-4">Criteo's command - {{today}}</h1>
+    <div class="flex flex-row">
+        <div class="grow flex justify-center">
+            <div>
+                <h2 class="text-xl text-white font-medium">Individual Order</h2>
+                    <table class="table bg-white rounded-xl shadow-xl m-8">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Dish</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in all_orders %}
+                            <tr>
+                                <td>{{ order['owner']|capitalize }}</td>
+                                <td>{{ order['name']|capitalize | replace("_", " ") }}</td>
+                                <td>{{ order['quantity'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        <div class="grow flex justify-center">
+            <div> 
+                <h2 class="text-xl text-white font-medium">Total Order</h2>
+                    <table class="table bg-white rounded-xl shadow-xl m-8">
+                        <thead>
+                            <tr>
+                                <th>Dish</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in grouped %}
+                            <tr>
+                                <td>{{ order['name'] | capitalize | replace("_", " ") }}</td>
+                                <td>{{ order['quantity'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

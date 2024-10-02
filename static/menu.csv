@@ -1,0 +1,76 @@
+Category,Dish,Description,Price
+Salades,SALADE INDIENNE AU POULET,"Salade verte, concombre, tomate, blanc de poulet tandoori, carottes oignon",8€
+Salades,SALADE DE CREVETTE,"Salade verte, crevettes fraîches, tomate, oignon rouge, carottes concombre",8€
+Raita,RAÏTA,"Yaourt nature fouetté, concombre, tomate et épices",6€
+Raita,BOONDI RAÏTA,"Yaourt nature fouetté avec épices, boulettes de farine de pois chiches croustillantes",6€
+Raita,RAÏTA CREVETTES,"Yaourt nature fouetté avec épices, petites crevettes et crème fraîche",7€
+Pakora,OIGNON BHAJI,Beignets d’oignons enrobés d’une pâte de farine de pois chiches frits,7.5€
+Pakora,PALAK PAKORA,Beignets de feuilles d’épinard avec morceaux de gingembre,8€
+Pakora,ALOO PAKORA,Beignets de pomme de terre enrobés d’une pâte de farine de pois chiches frits,7€
+Pakora,BENGAN PAKORA,Beignets d’aubergines enrobés d’une pâte de farine de pois chiches frits,8€
+Pakora,SAMOSSA LÉGUMES,"Pomme de terre, petits pois, fruits secs (fait maison) frits",8.5€
+Pakora,SAMOSSA CREVETTES,"Mini crevettes, petits pois, fruits secs (fait maison) frits",9.5€
+Tandoori,POULET TANDOORI,"Cuisse de poulet marinée dans du yaourt, du jus de citron, une pâte de gingembre et d’ail",10€
+Tandoori,MALAÏ TIKKA,"Blanc de poulet mariné dans la crème fraîche et des épices, cardamome grillé",11€
+Tandoori,POULET TIKKA,"Morceaux de blanc de poulet marinés dans du yaourt et des épices, grillés dans le tandoor",11€
+Tandoori,RISHMI KEBABS,"Poulet haché avec fromage maison, jus de citron, épices, coriandre fraîche, grillé dans le tandoor",10€
+Tandoori,SEEKH KEBABS,"Agneau haché mariné avec épices et herbes, grillé sur brochette dans le tandoor",11€
+Tandoori,AGNEAU TIKKA,"Morceaux d’agneau marinés dans du yaourt et des épices, jus de citron, pâte de gingembre et d’ail",13€
+Tandoori,POISSON TIKKA,"Saumon mariné dans une pâte de gingembre, ail, jus de citron, grillé dans le tandoor avec oignons et poivrons",13€
+Tandoori,GAMBAS TANDOORI,"Gambas marinées dans une pâte de gingembre, ail, jus de citron, grillées dans le tandoor",19€
+Tandoori,MIX TANDOORI,"Assortiment de poulet, gambas, agneau, poisson, seekh kebab, grillés dans le tandoor",20€
+Tandoori,POULET TIKKA MENTHE,"Morceaux de blanc de poulet marinés dans du yaourt, des épices et sauce à la menthe",12€
+Pains,NAAN,Galette de farine de blé servie chaude dans le tandoor.,2.5€
+Pains,CHEES NAAN,Galette de farine de blé garnie de fromage servie chaude dans le tandoor.,4.5€
+Pains,KASHMIRI NAAN,"Galette de farine de blé garnie de fruits secs, cuite dans le tandoor.",4.5€
+Pains,ALU NAAN,Galette de farine de blé garnie de pommes de terre assaisonnées.,3.5€
+Pains,NAAN À L’AIL,Farine de blé garnie d’ail.,3.5€
+Pains,CHEES NAAN GARLIC,"Galettes de farine de blé garnies de fromage et d’ail, servies chaudes, cuites dans le tandoor.",5.5€
+Spécialités Poulet,POULET CURRY,Poulet à la sauce curry crème fraîche.,9.5€
+Spécialités Poulet,POULET À LA MENTHE,"Blanc de poulet grillé au tandoor puis rajouté dans une sauce menthe, crème et épices.",11€
+Spécialités Poulet,POULET KADHAI,Morceaux de blanc de poulet à la sauce tomate avec des petits morceaux de gingembre dans la sauce et des épices.,11€
+Spécialités Poulet,POULET KASHMIRI,"Blanc de poulet grillé au tandoor puis rajouté dans une sauce faite à base de yaourt, épices et fruits secs (amandes, noix de cajou, et raisins secs).",12€
+Spécialités Poulet,POULET SAAG,"Morceaux de blancs de poulet cuits avec des épinards hachés et des épices fraîchement moulues, avec tomates fraîches et crème.",11€
+Spécialités Poulet,POULET KORMA,Morceaux de blancs de poulet cuits dans une sauce crémeuse à base de fruits secs et crème fraîche.,12€
+Spécialités Poulet,POULET MAKHANI,"Blanc de poulet mariné dans une sauce au beurre, puis rajouté dans une sauce, crème et tomate.",12€
+Spécialités Poulet,POULET MADRAS,"Blanc de poulet cuit dans une pâte fine d’épices grillées, graines de moutarde et piment grillés, lait de coco garni de coriandre fraîche.",12€
+Spécialités Poulet,POULET TIKKA MASSALA,Blanc de poulet grillé au tandoor puis rajouté dans une sauce généreuse et épaisse avec tomates fraîches et crème (pimenté à la demande).,14€
+Spécialités Poulet,POULET TIKKA MADRAS,"Blanc de poulet grillé au tandoor puis rajouté dans une sauce épaisse, poivrons, oignons, tomate fraîche, crème et légèrement épicé.",16€
+Spécialités Poulet,POULET AU SAFRAN,Blanc de poulet sauté avec oignons et épices puis rajouté dans une sauce à la crème et du safran (décoré de pistils de safran).,16€
+Spécialités Agneaux,AGNEAU CURRY,Morceaux d'agneau cuits dans une généreuse sauce curry assaisonnée avec crème.,11€
+Spécialités Agneaux,AGNEAU KADHAI,Morceaux d'agneau à la sauce tomate avec des petits morceaux de gingembre dans la sauce.,12.5€
+Spécialités Agneaux,AGNEAU SAAG,Morceaux d'agneau cuits avec des épinards hachés et des épices fraîchement moulues avec des tomates fraîches et crème.,12.5€
+Spécialités Agneaux,AGNEAU ROGAN JOSH,"Morceaux d'agneau cuits dans une savoureuse sauce curry et une pâte de fruits secs, parfumée de cardamome, clou de girofle, cumin, safran, crème et graines de pavot. Plat du Kashmir avec crème.",13€
+Spécialités Agneaux,AGNEAU MADRAS,"Morceaux d'agneau cuits dans une pâte fine d'épices grillées à sec, graines de moutarde et piment grillés, lait de coco, garni de coriandre fraîche, nappé d'une sauce riche et épicée.",13€
+Spécialités Agneaux,AGNEAU VINDALOO,"Morceaux d'agneau délicatement cuits avec des oignons, du cumin, de la coriandre et du piment. Du vinaigre est ajouté à ce plat pour y donner une saveur épicée et relevée.",13€
+Spécialités Agneaux,AGNEAU KORMA,"Morceaux d'agneau cuits dans une sauce crémeuse à base de fruits secs, épices, de safran, lait et crème fraîche.",13€
+Spécialités Agneaux,AGNEAU TIKKA MASALA,"Morceaux d'agneau grillés au tandoor puis rajoutés dans une sauce épaisse, crème et tomates fraîches.",16.5€
+Spécialités Poissons,POISSON CURRY,Filet de poisson cuit dans une sauce curry crème fraîche.,10€
+Spécialités Poissons,POISSON TOMATE,"Poisson préparé en sauce, avec tomates fraîches, ail, gingembre et des épices garni de coriandre fraîche.",11€
+Spécialités Poissons,POISSON MENTHE,"Filet de poisson cuit dans une sauce crème à la menthe fraîche et ses épices (ails, gingembre, ...).",11€
+Spécialités Poissons,POISSON MADRAS,"Filet de poisson cuit avec une sauce curry, du lait de coco et garni de coriandre fraîche. Plat du Sud de l'Inde nappé d'une sauce riche et épicée avec graines de moutarde et piment.",11€
+Spécialités Poissons,POISSON VINDALOO,Filet de poisson mariné cuit avec des pommes de terre dans une sauce épicée.,12.5€
+Spécialités Poissons,POISSON TIKKA MASALA,"Saumon mariné dans des épices puis grillé sur brochette dans le tandoor et ajouté dans une savoureuse sauce d'oignons, d'épices, du jus de citron et des tomates fraîches, crème garni de coriandre fraîche.",14€
+Spécialités Crevettes et Gambas,CREVETTE CURRY,Crevettes cuites dans une riche sauce d'oignons garnies et de tomates garnies de coriandre fraîche. Crème fraîche.,11€
+Spécialités Crevettes et Gambas,CREVETTE MALAI,Crevettes cuites dans une savoureuse sauce à base de pâte de noix de cajou et de lait de coco parfumé de safran. Crème fraîche.,12.5€
+Spécialités Crevettes et Gambas,CREVETTE MASSALA,"Crevettes succulentes sautées dans une riche sauce d'oignons et de tomates, sauce épaisse et assaisonnée. Légèrement épicée.",11€
+Spécialités Crevettes et Gambas,CREVETTE KORMA,"Crevettes cuites dans une sauce crémeuse à base d'amandes, d'épices, crème fraîche et d'un soupçon d'ail. Garnies d'amandes.",13€
+Spécialités Crevettes et Gambas,GAMBAS CURRY,Gambas cuites dans une riche sauce d'oignon garnies de coriandre fraîche. Crème fraîche.,14€
+Spécialités Crevettes et Gambas,GAMBAS KADHAI,Gambas à la sauce tomate avec des petits morceaux de gingembre dans la sauce et des épices.,14€
+Spécialités Crevettes et Gambas,GAMBAS MASSALA,Gambas sautées dans une riche sauce d'oignons de tomates assaisonnée. Légèrement épicée.,13€
+Légumes,DAAL MAKHNI,"Plat de lentilles cuites à feu doux et sautées avec des oignons, des épices et des tomates pour une touche finale de saveur crémeuse.",8.5€
+Légumes,PALAK PANEER,Savoureux morceaux de fromage maison frais cuits avec des épinards et des épices fraîchement moulues. Crème fraîche.,9.5€
+Légumes,MATTAR PANEER,Plat consistant fait de fromage maison frais cuits avec des épices et des petits pois. Crème fraîche.,8€
+Légumes,BAIGAN BARTHA,"Aubergine rôtie cuite avec des oignons, des tomates, et garnie de coriandre fraîche. Crème fraîche.",9.5€
+Légumes,ALOO JEERA,Pommes de terre marinées aux graines de cumin et des épices avec sauce curry.,9€
+Légumes,KADAI VÉGÉTARIAN CURRY,Des légumes mijotés à la sauce curry.,9€
+Légumes,PUNJABI CHANA MASSALA,"Pois chiches fortement assaisonnés d'oignons, d'ail, de coriandre, de garam masala et de poudre de mangue, donnant à ce plat consistant de la campagne du Punjab une agréable saveur piquante.",9€
+Légumes,NAVRATON KORMA,"Légumes cuits avec des fruits secs et un soupçon de crème, plat garni d'amandes.",11€
+Biryani,BIRYANI aux légumes,"Riz basmati parfumé, cuit avec des légumes.",13.5€
+Biryani,BIRYANI poulet,"Riz basmati parfumé, cuit avec des morceaux de poulet et des fruits secs.",15€
+Biryani,BIRYANI agneau,"Riz basmati parfumé, cuit avec des morceaux d'agneau et des fruits secs.",16€
+Biryani,BIRYANI crevettes,"Riz basmati parfumé, cuit avec des crevettes et des fruits secs.",16€
+Biryani,BIRYANI du chef,"Riz basmati parfumé, cuit avec des morceaux de blancs de poulet, agneau, crevettes et des fruits secs.",17€
+Riz,RIZ basmati,Riz parfumé avec du safran.,4€
+Riz,RIZ mattar poualo,"Riz basmati parfumé, cuit avec des oignons, des petits pois, des tomates fraîches et du safran.",5€
+Riz,KASHMIRI POUALO,"Riz basmati parfumé, et des fruits secs (amandes, noix de cajou, raisins secs).",5€
