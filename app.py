@@ -6,15 +6,8 @@ from flask import Flask, redirect, render_template, request, url_for
 app = Flask(__name__)
 
 menu = pd.read_csv("static/menu.csv")
-
 categories = menu["Category"].unique().tolist()
-
-
-def process(menu, category):
-    return menu[menu["Category"] == category].to_dict(orient="records")
-
-
-menu = {c: process(menu, c) for c in categories}
+menu = {c: menu[menu["Category"] == c].to_dict(orient="records") for c in categories}
 
 
 def today():

@@ -64,6 +64,7 @@
                 quantity.textContent = parseInt(quantity.textContent) + 1;
             } else {
                 item_ = document.createElement('li');
+                item_.id = `li-selected-${item.id}`;
                 item_.classList.add('flex', 'flex-row', 'p-2', 'justify-between');
 
                 const item_quantity = document.createElement('span');
@@ -76,6 +77,17 @@
                 item_name.textContent = item.querySelector('.name').textContent;
                 item_.appendChild(item_name);
 
+                const plus_minus = document.createElement('span');
+                plus_minus.classList.add('flex', 'flex-row', 'gap-2');
+                const plus = document.createElement('span');
+                plus.id = `plus-${item.id}`;
+                plus.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    `;
+                plus.classList.add('cursor-pointer', 'hover:text-green-500', 'transition', 'ease-in-out');
+                plus.addEventListener('click', () => item_quantity.textContent = parseInt(item_quantity.textContent) + 1);
+
                 const minus = document.createElement('span');
                 minus.id = `minus-${item.id}`;
                 minus.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -87,11 +99,14 @@
                     if (parseInt(item_quantity.textContent) > 1) {
                         item_quantity.textContent = parseInt(item_quantity.textContent) - 1;
                     } else {
-                        item_.remove();
+                        const to_remove = document.getElementById(item_quantity.id.replace('quantity-', 'li-selected-'));
+                        to_remove.remove();
                     }
                 });
 
-                item_.appendChild(minus);
+                plus_minus.appendChild(plus);
+                plus_minus.appendChild(minus);
+                item_.appendChild(plus_minus);
                 basket.querySelector('ul').appendChild(item_);
             }
         });
