@@ -54,7 +54,6 @@
         fetch("static/menu.json")
             .then(data => data.json())
             .then(menu_data => {
-                console.log(menu_data);
                 const menu = document.getElementById("menu");
                 const order = document.getElementById('order-button');
 
@@ -159,14 +158,11 @@
                     document.getElementById('owner').value = cookies.split('gandhi-username=')[1].split(';')[0];
                 }
 
-                console.log(cookies);
                 order.addEventListener('click', () => {
-                    console.log('order');
                     owner = document.getElementById('owner').value;
                     document.cookie = `gandhi-username=${owner}`;
                     var payload = `owner=${owner}`;
 
-                    console.log("YRIEIX");
                     const toto = Array.from(basket.querySelectorAll('.quantity'))
                     const command = toto.map(item => `${item.id.replace('quantity-', '')}_${item.textContent}`);
                     if (command.length > 0) {
@@ -181,12 +177,11 @@
         async function addOrder(payload) {
             const url = "https://script.google.com/macros/s/AKfycbyKzcnl3tI1fNtCCX4wteo4IAJvQCXgey4vlkG-iUvXQonQzf1Vs9WfWYgRsU9L3w9R/exec";
             const apiUrl = `${url}?${payload}`;
-            console.log('Adding order: ', apiUrl);
             try {
                 const response = await fetch(apiUrl, { method: 'POST' });
                 const result = await response.json();
                 if (result.status === 'success') {
-                    alert('Order added successfully!');
+                    document.location.href = "/full_order"
                 } else {
                     alert('Failed to add order: ' + result.message);
                 }

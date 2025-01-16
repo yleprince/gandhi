@@ -20,9 +20,9 @@
                         <table class="sm:m-6 table bg-white rounded-xl shadow-xl">
                             <thead>
                                 <tr>
-                                    <th>Owner</th>
-                                    <th>Dish</th>
-                                    <th>Quantity</th>
+                                    <th>Owner <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Dish <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Quantity <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
                                 </tr>
                             </thead>
                             <tbody id="all_orders"></tbody>
@@ -35,8 +35,8 @@
                         <table class="table bg-white rounded-xl shadow-xl sm:m-6">
                             <thead >
                                 <tr>
-                                    <th>Dish</th>
-                                    <th>Quantity</th>
+                                    <th>Dish <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Quantity <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
                                 </tr>
                             </thead>
                             <tbody id="grouped_orders"></tbody>
@@ -90,6 +90,10 @@
                     </tr>
                     `;
                 }).join('');
+
+                const loaders = Array.from(document.getElementsByClassName('loader'));
+                loaders.map(loader => loader.remove());
+
             });
     </script>
 </html>
