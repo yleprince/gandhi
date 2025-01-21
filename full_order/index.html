@@ -59,33 +59,41 @@
         const url = "https://script.google.com/macros/s/AKfycbyKzcnl3tI1fNtCCX4wteo4IAJvQCXgey4vlkG-iUvXQonQzf1Vs9WfWYgRsU9L3w9R/exec";
         const apiUrl = `${url}?date=${date}`;
         console.log(apiUrl);
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+        function fromUidToStr(uid) {
+            return capitalizeFirstLetter(uid.replace("_", " ").replace("-", " "))
+        }
+
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                const ordered = data.data;
-                console.log(ordered);
+                const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
                 document.getElementById('all_orders').innerHTML = ordered.map(order => {
                     return `
                     <tr> 
-                        <td>${order.owner}</td>
-                        <td>${order.item.replace("_", " ")}</td>
+                        <td>${capitalizeFirstLetter(order.owner)}</td>
+                        <td>${fromUidToStr(order.item)}</td>
                         <td>${order.quantity}</td>
                     </tr>
                     `;
                 }).join('');
 
 
-                document.getElementById("grouped_orders").innerHTML = Object.entries(ordered.reduce((acc, curr) => {
+                const grouped = Object.entries(ordered.reduce((acc, curr) => {
                     if (acc[curr.item]) {
                         acc[curr.item] += curr.quantity;
                     } else {
                         acc[curr.item] = curr.quantity;
                     }
                     return acc;
-                }, {})).map(([key, value]) => {
+                }, {})).sort((a,b) => b[1] - a[1])
+                document.getElementById("grouped_orders").innerHTML = grouped.sort((a,b) => a[0] < b[0]).map(([key, value]) => {
                     return `
                     <tr>
-                        <td>${key.replace("_", " ")}</td>
+                        <td>${fromUidToStr(key)}</td>
                         <td>${value}</td>
                     </tr>
                     `;
@@ -93,7 +101,6 @@
 
                 const loaders = Array.from(document.getElementsByClassName('loader'));
                 loaders.map(loader => loader.remove());
-
             });
     </script>
 </html>
