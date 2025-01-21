@@ -50,7 +50,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 mr-2 animate-bounce">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
             </svg>
-            04.38.12.99.57
+            <a href="tel:0438129957">04.38.12.99.57</a>
         </div>
     </body>
     <script>
@@ -58,7 +58,6 @@
         document.getElementById('date-h1').innerHTML = date;
         const url = "https://script.google.com/macros/s/AKfycbyKzcnl3tI1fNtCCX4wteo4IAJvQCXgey4vlkG-iUvXQonQzf1Vs9WfWYgRsU9L3w9R/exec";
         const apiUrl = `${url}?date=${date}`;
-        console.log(apiUrl);
 
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
@@ -79,8 +78,6 @@
                 fetch("/static/menu.json").then(response => response.json()).then(menu => menu.map(d => Array.from([d.id, d.Price])))
                     .then(menu => {
                         const priceMap = new Map(menu);
-                        console.log(priceMap);
-                        console.log(priceMap.get("raïta"));
                         const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
                         var previousOwner = "";
                         document.getElementById('all_orders').innerHTML = ordered.map(order => {
