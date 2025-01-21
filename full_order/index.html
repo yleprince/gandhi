@@ -55,6 +55,9 @@
         </div>
     </body>
     <script>
+        console.log("Hello Gandhi User 🫵!\nIn case of error for the command you can manually edit the google sheet");
+        console.log("https://docs.google.com/spreadsheets/d/1u5HdwJuoFV40RaJuqw6emRy0F7fUUFEEPnP9-PL2MU0/edit?usp=sharing");
+        console.log("⚠️  This is irreversible, be careful ⚠️");
         const date = new Date().toISOString().split('T')[0];
         document.getElementById('date-h1').innerHTML = date;
         const url = "https://script.google.com/macros/s/AKfycbyKzcnl3tI1fNtCCX4wteo4IAJvQCXgey4vlkG-iUvXQonQzf1Vs9WfWYgRsU9L3w9R/exec";
@@ -71,7 +74,6 @@
             const price_ = parseFloat(price.substring(0, price.length - 1))
             return price_ * quantity;
         }
-
 
         fetch(apiUrl)
             .then(response => response.json())
@@ -126,5 +128,6 @@
                         document.getElementById('nb-dish').innerHTML = nbDish + " dishes";
                     })
             });
+
     </script>
 </html>
