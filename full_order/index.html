@@ -20,9 +20,10 @@
                         <table class="sm:m-6 table bg-white rounded-xl shadow-xl">
                             <thead>
                                 <tr>
-                                    <th>Owner <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th>Dish <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th>Quantity <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>User<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Dish<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Qtity<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Price<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
                                 </tr>
                             </thead>
                             <tbody id="all_orders"></tbody>
@@ -31,12 +32,12 @@
                 </div>
                 <div class="grow flex justify-center">
                     <div> 
-                        <h2 class="text-xl text-white font-medium p-2">Total Order</h2>
+                        <h2 class="text-xl text-white font-medium p-2 flex">Total Order <div id="nb-dish" class="px-2">XX dishes</div><div id="total-price" class="px-2">XX€</div></h2>
                         <table class="table bg-white rounded-xl shadow-xl sm:m-6">
                             <thead >
                                 <tr>
-                                    <th>Dish <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th>Quantity <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Dish<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Quantity<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
                                 </tr>
                             </thead>
                             <tbody id="grouped_orders"></tbody>
@@ -115,7 +116,14 @@
                         const loaders = Array.from(document.getElementsByClassName('loader'));
                         loaders.map(loader => loader.remove());
 
+                        const totalPrice = grouped.reduce((acc, curr) => {
+                            const price = priceMap.get(curr[0]);
+                            return acc + computePrice(price, curr[1]);
+                        }, 0);
+                        document.getElementById('total-price').innerHTML = totalPrice + "€";
 
+                        const nbDish = grouped.reduce((acc, curr) => acc + curr[1], 0);
+                        document.getElementById('nb-dish').innerHTML = nbDish + " dishes";
                     })
             });
     </script>
