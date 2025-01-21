@@ -67,40 +67,59 @@
             return capitalizeFirstLetter(uid.replace("_", " ").replace("-", " "))
         }
 
+        function computePrice(price, quantity) {
+            const price_ = parseFloat(price.substring(0, price.length - 1))
+            return price_ * quantity;
+        }
+
+
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
-                document.getElementById('all_orders').innerHTML = ordered.map(order => {
-                    return `
-                    <tr> 
-                        <td>${capitalizeFirstLetter(order.owner)}</td>
-                        <td>${fromUidToStr(order.item)}</td>
-                        <td>${order.quantity}</td>
-                    </tr>
-                    `;
-                }).join('');
+                fetch("/static/menu.json").then(response => response.json()).then(menu => menu.map(d => Array.from([d.id, d.Price])))
+                    .then(menu => {
+                        const priceMap = new Map(menu);
+                        console.log(priceMap);
+                        console.log(priceMap.get("raïta"));
+                        const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
+                        var previousOwner = "";
+                        document.getElementById('all_orders').innerHTML = ordered.map(order => {
+                            const tr = `
+                                <tr> 
+                                <td>${order.owner === previousOwner ? "" : capitalizeFirstLetter(order.owner)}</td>
+                                <td>${fromUidToStr(order.item)}</td>
+                                <td>${order.quantity}</td>
+                                <td>${computePrice(priceMap.get(order.item), order.quantity) + "€"}</td>
+                                </tr>
+                                `;
+                            previousOwner = order.owner;
+
+                            return tr
+                        }).join('');
 
 
-                const grouped = Object.entries(ordered.reduce((acc, curr) => {
-                    if (acc[curr.item]) {
-                        acc[curr.item] += curr.quantity;
-                    } else {
-                        acc[curr.item] = curr.quantity;
-                    }
-                    return acc;
-                }, {})).sort((a,b) => b[1] - a[1])
-                document.getElementById("grouped_orders").innerHTML = grouped.sort((a,b) => a[0] < b[0]).map(([key, value]) => {
-                    return `
-                    <tr>
-                        <td>${fromUidToStr(key)}</td>
-                        <td>${value}</td>
-                    </tr>
-                    `;
-                }).join('');
+                        const grouped = Object.entries(ordered.reduce((acc, curr) => {
+                            if (acc[curr.item]) {
+                                acc[curr.item] += curr.quantity;
+                            } else {
+                                acc[curr.item] = curr.quantity;
+                            }
+                            return acc;
+                        }, {})).sort((a,b) => b[1] - a[1])
+                        document.getElementById("grouped_orders").innerHTML = grouped.sort((a,b) => a[0] < b[0]).map(([key, value]) => {
+                            return `
+                                <tr>
+                                <td>${fromUidToStr(key)}</td>
+                                <td>${value}</td>
+                                </tr>
+                                `;
+                        }).join('');
 
-                const loaders = Array.from(document.getElementsByClassName('loader'));
-                loaders.map(loader => loader.remove());
+                        const loaders = Array.from(document.getElementsByClassName('loader'));
+                        loaders.map(loader => loader.remove());
+
+
+                    })
             });
     </script>
 </html>
