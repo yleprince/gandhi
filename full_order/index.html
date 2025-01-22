@@ -60,8 +60,8 @@
         console.log("⚠️  This is irreversible, be careful ⚠️");
         const date = new Date().toISOString().split('T')[0];
         document.getElementById('date-h1').innerHTML = date;
-        const url = "https://script.google.com/macros/s/AKfycbyKzcnl3tI1fNtCCX4wteo4IAJvQCXgey4vlkG-iUvXQonQzf1Vs9WfWYgRsU9L3w9R/exec";
-        const apiUrl = `${url}?date=${date}`;
+        const url = "https://script.google.com/macros/s/AKfycbyzQ0LqCPqQJDnSca1qdrgAhSvVqJpj0jriBeLWHkwRSuF1JieB09N11dQCAhkDIgow8Q/exec"
+        const apiUrl = `${url}?action=getByDate&date=${date}`;
 
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
