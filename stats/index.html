@@ -21,8 +21,6 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 7.756a4.5 4.5 0 1 0 0 8.488M7.5 10.5h5.25m-5.25 3h5.25M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
-
-
                             </div>
                             <div class="stat-title">Total Spend</div>
                             <div class="stat-value bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-orange-500" id="total-price">
@@ -58,6 +56,28 @@
                 </div>
             </div>
         </div>
+
+        <div id="layout" class="pb-8">
+            <div class="sm:flex sm:flex-row">
+                <div class="grow flex justify-center">
+                    <div>
+                        <h2 class="text-xl p-2 text-white font-medium">User Stats</h2>
+                        <table class="sm:m-6 table table-xs bg-white rounded-xl shadow-xl">
+                            <thead>
+                                <tr>
+                                    <th>User<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Nb Dishes Ordered<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Total Price<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Favorite Dish<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="user_stats"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
     <script>
         const url = "https://script.google.com/macros/s/AKfycbyzQ0LqCPqQJDnSca1qdrgAhSvVqJpj0jriBeLWHkwRSuF1JieB09N11dQCAhkDIgow8Q/exec"
@@ -104,10 +124,50 @@
                         const nbDish = grouped.reduce((acc, curr) => acc + curr[1], 0);
                         document.getElementById('nb-dish').innerHTML = nbDish;
 
-                        const nbUser = new Set(ordered.map(o => o.owner)).size;
+                        const users = new Set(ordered.map(o => o.owner));
+                        const nbUser = users.size;
                         document.getElementById('nb-user').innerHTML = nbUser;
+
+                        const userStatsTable = document.getElementById('user_stats');
+                        userStatsTable.innerHTML = "";
+                        const aggregated = ordered.reduce((acc, { owner, item, quantity }) => {
+                            const key = `${owner}-${item}`;
+                            if (!acc[key]) {
+                                acc[key] = { owner, item, quantity: 0 };
+                            }
+                            acc[key].quantity += quantity;
+                            return acc;
+                        }, {});
+
+                        // Convert the result to an array
+                        const result = Object.values(aggregated);
+
+                        users.forEach(user => {
+                            const userStats = result.filter(r => r.owner === user);
+                            const favoriteDish = userStats.reduce((acc, curr) => {
+                                if (acc.quantity < curr.quantity) {
+                                    acc = curr;
+                                }
+                                return acc;
+                            }, { quantity: 0 });
+
+                            const totalPrice = userStats.reduce((acc, curr) => {
+                                const price = priceMap.get(curr.item);
+                                return acc + computePrice(price, curr.quantity);
+                            }, 0);
+
+                            const totalDishes = userStats.reduce((acc, curr) => acc + curr.quantity, 0);
+
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${fromUidToStr(user)}</td>
+                                <td>${totalDishes}</td>
+                                <td>${totalPrice}</td>
+                                <td>${fromUidToStr(favoriteDish.item)}</td>
+                                `;
+                            userStatsTable.appendChild(row);
+                        });
                     })
             });
-
     </script>
 </html>
