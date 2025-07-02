@@ -157,7 +157,19 @@
                     document.getElementById('owner').value = cookies.split('gandhi-username=')[1].split(';')[0];
                 }
 
+                isOrderLoading = false;
+                function resetOrderButton(){
+                    isOrderLoading = false;
+                    order.disabled = false;
+                    order.textContent = 'Add to command';
+                }
+
                 order.addEventListener('click', () => {
+                    if (isOrderLoading) return; // Prevent double-clicking
+                    isOrderLoading = true;
+                    order.disabled = true;
+                    order.textContent = 'Processing...';
+
                     owner = document.getElementById('owner').value;
                     document.cookie = `gandhi-username=${owner}`;
                     var payload = `owner=${owner}`;
@@ -166,10 +178,11 @@
                     const command = toto.map(item => `${item.id.replace('quantity-', '')}_${item.textContent}`);
                     if (command.length > 0) {
                         payload += "&items=" + command.join(',')
+                        addOrder(payload).then(resetOrderButton);
                     } else {
-                        alert('You need to selected at least one dish');
+                        alert('You need to select at least one dish');
+                        resetOrderButton();
                     }
-                    addOrder(payload);
                 });
             });
 
