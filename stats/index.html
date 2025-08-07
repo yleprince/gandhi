@@ -62,13 +62,13 @@
                 <div class="grow flex justify-center">
                     <div>
                         <h2 class="text-xl p-2 text-white font-medium">User Stats</h2>
-                        <table class="sm:m-6 table table-xs bg-white rounded-xl shadow-xl">
+                        <table id="user_stats_table" class="sm:m-6 table table-xs bg-white rounded-xl shadow-xl">
                             <thead>
                                 <tr>
-                                    <th>User<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th>Nb Dishes Ordered<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th>Total Price<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th>Favorite Dish<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th onclick="sortTable(0)">User<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th onclick="sortTable(1)">Nb Dishes Ordered<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th onclick="sortTable(2)">Total Price<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th onclick="sortTable(3)">Favorite Dish<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
                                 </tr>
                             </thead>
                             <tbody id="user_stats"></tbody>
@@ -169,5 +169,43 @@
                         });
                     })
             });
+
+        let sortDirections = {};
+
+        function sortTable(colIndex) {
+            const table = document.getElementById('user_stats_table');
+            const tbody = table.tBodies[0];
+            const rows = Array.from(tbody.rows);
+
+            // Toggle sort direction: default asc
+            sortDirections[colIndex] = !sortDirections[colIndex];
+
+            rows.sort((a, b) => {
+                let valA = a.cells[colIndex].textContent.trim();
+                let valB = b.cells[colIndex].textContent.trim();
+
+                // Try to convert to number or date
+                const numA = parseFloat(valA);
+                const numB = parseFloat(valB);
+
+                if (!isNaN(numA) && !isNaN(numB)) {
+                    return sortDirections[colIndex] ? numA - numB : numB - numA;
+                }
+
+                const dateA = Date.parse(valA);
+                const dateB = Date.parse(valB);
+                if (!isNaN(dateA) && !isNaN(dateB)) {
+                    return sortDirections[colIndex] ? dateA - dateB : dateB - dateA;
+                }
+
+                return sortDirections[colIndex]
+                    ? valA.localeCompare(valB)
+                    : valB.localeCompare(valA);
+            });
+
+            // Reattach sorted rows
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
     </script>
 </html>
