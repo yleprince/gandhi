@@ -8,14 +8,12 @@
         <link href="/static/build.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="/static/theme-updater.js"></script>
     </head>
-    <body class="min-h-screen">
-
-
+    <body class="min-h-screen bg-gradient">
         <div id="layout" class="pb-8">
             <h1 class="text-6xl sm:text-8xl custom-title py-6 px-4">Gandhi Orders Stats</h1>
             <div class="sm:flex sm:flex-row mt-12">
                 <div class="grow flex justify-center">
-                    <div class="stats stats-vertical sm:stats-horizontal shadow">
+                    <div class="stats stats-vertical bg-base-100 sm:stats-horizontal shadow">
                         <div class="stat">
                             <div class="stat-figure text-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="size-6">
@@ -61,8 +59,8 @@
             <div class="sm:flex sm:flex-row">
                 <div class="grow flex justify-center">
                     <div>
-                        <h2 class="text-xl p-2 text-white font-medium">User Stats</h2>
-                        <table id="user_stats_table" class="sm:m-6 table table-xs bg-white rounded-xl shadow-xl">
+                        <h2 class="text-xl p-2 text-primary font-medium">User Stats</h2>
+                        <table id="user_stats_table" class="sm:m-6 table table-xs bg-base-100 rounded-xl shadow-xl">
                             <thead>
                                 <tr>
                                     <th class="cursor-pointer" onclick="sortTable(0)">User<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
@@ -87,7 +85,7 @@
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
         function fromUidToStr(uid) {
-            return capitalizeFirstLetter(uid.replace("_", " ").replace("-", " "))
+            return capitalizeFirstLetter(uid.replace("v2-").replace("_", " ").replace("-", " "))
         }
 
         function computePrice(price, quantity) {
@@ -95,11 +93,27 @@
             return price_ * quantity;
         }
 
+        const loadMenus = async () => {
+            const [menuA, menuB] = await Promise.all([
+                fetch("/static/menu.json").then(r => r.json()),
+                fetch("/static/menu-2025-10.json").then(r => r.json())
+            ]);
+
+
+            // Normalize and map the two datasets
+            const entriesA = menuA.map(d => [d.id, d.Price]);
+            const entriesB = menuB.map(d => [d.id, d.Price]);
+
+            // Merge into a single Map (second array overrides first on duplicate IDs)
+            const merged = new Map([...entriesA, ...entriesB]);
+            return merged;
+        };
+
+
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                fetch("/static/menu.json").then(response => response.json()).then(menu => menu.map(d => Array.from([d.id, d.Price])))
-                    .then(menu => {
+                loadMenus().then(menu => {
                         const priceMap = new Map(menu);
                         const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
 
@@ -116,7 +130,7 @@
                         loaders.map(loader => loader.remove());
 
                         const totalPrice = grouped.reduce((acc, curr) => {
-                            const price = priceMap.get(curr[0]);
+                            const price = priceMap.get(curr[0].replace("v2-", ""));
                             return acc + computePrice(price, curr[1]);
                         }, 0);
                         document.getElementById('total-price').innerHTML = totalPrice ;
@@ -130,14 +144,19 @@
 
                         const userStatsTable = document.getElementById('user_stats');
                         userStatsTable.innerHTML = "";
+
+                    console.log("ordered", ordered)
+                    
                         const aggregated = ordered.reduce((acc, { owner, item, quantity }) => {
-                            const key = `${owner}-${item}`;
+                            const item_= item.replace("v2-", "")
+                            const key = `${owner}-${item_}`;
                             if (!acc[key]) {
-                                acc[key] = { owner, item, quantity: 0 };
+                                acc[key] = { owner, item:item_, quantity: 0 };
                             }
                             acc[key].quantity += quantity;
                             return acc;
                         }, {});
+                    console.log("agg", aggregated)
 
                         // Convert the result to an array
                         const result = Object.values(aggregated);

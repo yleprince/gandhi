@@ -23,6 +23,10 @@
   }
 }
 
+@utility bg-gradient {
+    @apply bg-gradient-to-r from-base-100 to-base-300
+}
+
 @utility text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary to-primary
 }
