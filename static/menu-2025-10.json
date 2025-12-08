@@ -1,0 +1,520 @@
+[
+    {
+        "Category": "Salades",
+        "Dish": "SALADE INDIENNE AU POULET",
+        "Description": "Salade verte, concombre, tomate, blanc de poulet tandoori, carottes oignon",
+        "Price": "9€",
+        "id": "v2-salade-indienne-au-poulet"
+    },
+    {
+        "Category": "Salades",
+        "Dish": "SALADE DE CREVETTE",
+        "Description": "Salade verte, crevettes fraîches, tomate, oignon rouge, carottes concombre",
+        "Price": "9€",
+        "id": "v2-salade-de-crevette"
+    },
+    {
+        "Category": "Raita",
+        "Dish": "RAÏTA",
+        "Description": "Yaourt nature fouetté, concombre, tomate et épices",
+        "Price": "7€",
+        "id": "v2-raïta"
+    },
+    {
+        "Category": "Raita",
+        "Dish": "BOONDI RAÏTA",
+        "Description": "Yaourt nature fouetté avec épices, boulettes de farine de pois chiches croustillantes",
+        "Price": "7€",
+        "id": "v2-boondi-raïta"
+    },
+    {
+        "Category": "Raita",
+        "Dish": "RAÏTA CREVETTES",
+        "Description": "Yaourt nature fouetté avec épices, petites crevettes et crème fraîche",
+        "Price": "8€",
+        "id": "v2-raïta-crevettes"
+    },
+    {
+        "Category": "Pakora",
+        "Dish": "OIGNON BHAJI",
+        "Description": "Beignets d’oignons enrobés d’une pâte de farine de pois chiches frits",
+        "Price": "8.5€",
+        "id": "v2-oignon-bhaji"
+    },
+    {
+        "Category": "Pakora",
+        "Dish": "PALAK PAKORA",
+        "Description": "Beignets de feuilles d’épinard avec morceaux de gingembre",
+        "Price": "9€",
+        "id": "v2-palak-pakora"
+    },
+    {
+        "Category": "Pakora",
+        "Dish": "ALOO PAKORA",
+        "Description": "Beignets de pomme de terre enrobés d’une pâte de farine de pois chiches frits",
+        "Price": "8€",
+        "id": "v2-aloo-pakora"
+    },
+    {
+        "Category": "Pakora",
+        "Dish": "BENGAN PAKORA",
+        "Description": "Beignets d’aubergines enrobés d’une pâte de farine de pois chiches frits",
+        "Price": "9€",
+        "id": "v2-bengan-pakora"
+    },
+    {
+        "Category": "Pakora",
+        "Dish": "SAMOSSA LÉGUMES",
+        "Description": "Pomme de terre, petits pois, fruits secs (fait maison) frits",
+        "Price": "10€",
+        "id": "v2-samossa-légumes"
+    },
+    {
+        "Category": "Tandoori",
+        "Dish": "POULET TANDOORI",
+        "Description": "Cuisse de poulet marinée dans du yaourt, du jus de citron, une pâte de gingembre et d’ail",
+        "Price": "11€",
+        "id": "v2-poulet-tandoori"
+    },
+    {
+        "Category": "Tandoori",
+        "Dish": "POULET TIKKA",
+        "Description": "Morceaux de blanc de poulet marinés dans du yaourt et des épices, grillés dans le tandoor",
+        "Price": "13€",
+        "id": "v2-poulet-tikka"
+    },
+    {
+        "Category": "Tandoori",
+        "Dish": "RISHMI KEBABS",
+        "Description": "Poulet haché avec fromage maison, jus de citron, épices, coriandre fraîche, grillé dans le tandoor",
+        "Price": "12€",
+        "id": "v2-rishmi-kebabs"
+    },
+    {
+        "Category": "Tandoori",
+        "Dish": "SEEKH KEBABS",
+        "Description": "Agneau haché mariné avec épices et herbes, grillé sur brochette dans le tandoor",
+        "Price": "13€",
+        "id": "v2-seekh-kebabs"
+    },
+    {
+        "Category": "Tandoori",
+        "Dish": "AGNEAU TIKKA",
+        "Description": "Morceaux d’agneau marinés dans du yaourt et des épices, jus de citron, pâte de gingembre et d’ail",
+        "Price": "16€",
+        "id": "v2-agneau-tikka"
+    },
+    {
+        "Category": "Tandoori",
+        "Dish": "POISSON TIKKA",
+        "Description": "Saumon mariné dans une pâte de gingembre, ail, jus de citron, grillé dans le tandoor avec oignons et poivrons",
+        "Price": "15€",
+        "id": "v2-poisson-tikka"
+    },
+    {
+        "Category": "Tandoori",
+        "Dish": "GAMBAS TANDOORI",
+        "Description": "Gambas marinées dans une pâte de gingembre, ail, jus de citron, grillées dans le tandoor",
+        "Price": "21€",
+        "id": "v2-gambas-tandoori"
+    },
+    {
+        "Category": "Tandoori",
+        "Dish": "MIX TANDOORI",
+        "Description": "Assortiment de poulet, gambas, agneau, poisson, seekh kebab, grillés dans le tandoor",
+        "Price": "23€",
+        "id": "v2-mix-tandoori"
+    },
+    {
+        "Category": "Tandoori",
+        "Dish": "POULET TIKKA MENTHE",
+        "Description": "Morceaux de blanc de poulet marinés dans du yaourt, des épices et sauce à la menthe",
+        "Price": "13€",
+        "id": "v2-poulet-tikka-menthe"
+    },
+    {
+        "Category": "Pains",
+        "Dish": "NAAN",
+        "Description": "Galette de farine de blé servie chaude dans le tandoor.",
+        "Price": "2.5€",
+        "id": "v2-naan"
+    },
+    {
+        "Category": "Pains",
+        "Dish": "CHEES NAAN",
+        "Description": "Galette de farine de blé garnie de fromage servie chaude dans le tandoor.",
+        "Price": "4.5€",
+        "id": "v2-chees-naan"
+    },
+    {
+        "Category": "Pains",
+        "Dish": "KASHMIRI NAAN",
+        "Description": "Galette de farine de blé garnie de fruits secs, cuite dans le tandoor.",
+        "Price": "4.5€",
+        "id": "v2-kashmiri-naan"
+    },
+    {
+        "Category": "Pains",
+        "Dish": "ALU NAAN",
+        "Description": "Galette de farine de blé garnie de pommes de terre assaisonnées.",
+        "Price": "3.5€",
+        "id": "v2-alu-naan"
+    },
+    {
+        "Category": "Pains",
+        "Dish": "NAAN À L’AIL",
+        "Description": "Farine de blé garnie d’ail.",
+        "Price": "3.5€",
+        "id": "v2-naan-à-l’ail"
+    },
+    {
+        "Category": "Pains",
+        "Dish": "CHEES NAAN GARLIC",
+        "Description": "Galettes de farine de blé garnies de fromage et d’ail, servies chaudes, cuites dans le tandoor.",
+        "Price": "5.5€",
+        "id": "v2-chees-naan-garlic"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET CURRY",
+        "Description": "Poulet à la sauce curry crème fraîche.",
+        "Price": "12€",
+        "id": "v2-poulet-curry"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET À LA MENTHE",
+        "Description": "Blanc de poulet grillé au tandoor puis rajouté dans une sauce menthe, crème et épices.",
+        "Price": "13€",
+        "id": "v2-poulet-à-la-menthe"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET KADHAI",
+        "Description": "Morceaux de blanc de poulet à la sauce tomate avec des petits morceaux de gingembre dans la sauce et des épices.",
+        "Price": "13€",
+        "id": "v2-poulet-kadhai"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET KASHMIRI",
+        "Description": "Blanc de poulet grillé au tandoor puis rajouté dans une sauce faite à base de yaourt, épices et fruits secs (amandes, noix de cajou, et raisins secs).",
+        "Price": "14€",
+        "id": "v2-poulet-kashmiri"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET SAAG",
+        "Description": "Morceaux de blancs de poulet cuits avec des épinards hachés et des épices fraîchement moulues, avec tomates fraîches et crème.",
+        "Price": "14€",
+        "id": "v2-poulet-saag"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET KORMA",
+        "Description": "Morceaux de blancs de poulet cuits dans une sauce crémeuse à base de fruits secs et crème fraîche.",
+        "Price": "14€",
+        "id": "v2-poulet-korma"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET MAKHANI BUTTER CHICKEN",
+        "Description": "Blanc de poulet mariné dans une sauce au beurre, puis rajouté dans une sauce, crème et tomate.",
+        "Price": "14€",
+        "id": "v2-poulet-makhani"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET MADRAS",
+        "Description": "Blanc de poulet cuit dans une pâte fine d’épices grillées, graines de moutarde et piment grillés, lait de coco garni de coriandre fraîche.",
+        "Price": "14€",
+        "id": "v2-poulet-madras"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET TIKKA MASSALA",
+        "Description": "Blanc de poulet grillé au tandoor puis rajouté dans une sauce généreuse et épaisse avec tomates fraîches et crème (pimenté à la demande).",
+        "Price": "16€",
+        "id": "v2-poulet-tikka-massala"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET TIKKA MADRAS",
+        "Description": "Blanc de poulet grillé au tandoor puis rajouté dans une sauce épaisse, poivrons, oignons, tomate fraîche, crème et légèrement épicé.",
+        "Price": "18€",
+        "id": "v2-poulet-tikka-madras"
+    },
+    {
+        "Category": "Spécialités Poulet",
+        "Dish": "POULET AU SAFRAN",
+        "Description": "Blanc de poulet sauté avec oignons et épices puis rajouté dans une sauce à la crème et du safran (décoré de pistils de safran).",
+        "Price": "18€",
+        "id": "v2-poulet-au-safran"
+    },
+    {
+        "Category": "Spécialités Agneaux",
+        "Dish": "AGNEAU CURRY",
+        "Description": "Morceaux d'agneau cuits dans une généreuse sauce curry assaisonnée avec crème.",
+        "Price": "13.5€",
+        "id": "v2-agneau-curry"
+    },
+    {
+        "Category": "Spécialités Agneaux",
+        "Dish": "AGNEAU KADHAI",
+        "Description": "Morceaux d'agneau à la sauce tomate avec des petits morceaux de gingembre dans la sauce.",
+        "Price": "15€",
+        "id": "v2-agneau-kadhai"
+    },
+    {
+        "Category": "Spécialités Agneaux",
+        "Dish": "AGNEAU SAAG",
+        "Description": "Morceaux d'agneau cuits avec des épinards hachés et des épices fraîchement moulues avec des tomates fraîches et crème.",
+        "Price": "15€",
+        "id": "v2-agneau-saag"
+    },
+    {
+        "Category": "Spécialités Agneaux",
+        "Dish": "AGNEAU ROGAN JOSH",
+        "Description": "Morceaux d'agneau cuits dans une savoureuse sauce curry et une pâte de fruits secs, parfumée de cardamome, clou de girofle, cumin, safran, crème et graines de pavot. Plat du Kashmir avec crème.",
+        "Price": "16€",
+        "id": "v2-agneau-rogan-josh"
+    },
+    {
+        "Category": "Spécialités Agneaux",
+        "Dish": "AGNEAU MADRAS",
+        "Description": "Morceaux d'agneau cuits dans une pâte fine d'épices grillées à sec, graines de moutarde et piment grillés, lait de coco, garni de coriandre fraîche, nappé d'une sauce riche et épicée.",
+        "Price": "15.5€",
+        "id": "v2-agneau-madras"
+    },
+    {
+        "Category": "Spécialités Agneaux",
+        "Dish": "AGNEAU VINDALOO",
+        "Description": "Morceaux d'agneau délicatement cuits avec des oignons, du cumin, de la coriandre et du piment. Du vinaigre est ajouté à ce plat pour y donner une saveur épicée et relevée.",
+        "Price": "15.5€",
+        "id": "v2-agneau-vindaloo"
+    },
+    {
+        "Category": "Spécialités Agneaux",
+        "Dish": "AGNEAU KORMA",
+        "Description": "Morceaux d'agneau cuits dans une sauce crémeuse à base de fruits secs, épices, de safran, lait et crème fraîche.",
+        "Price": "16€",
+        "id": "v2-agneau-korma"
+    },
+    {
+        "Category": "Spécialités Agneaux",
+        "Dish": "AGNEAU TIKKA MASALA",
+        "Description": "Morceaux d'agneau grillés au tandoor puis rajoutés dans une sauce épaisse, crème et tomates fraîches.",
+        "Price": "18€",
+        "id": "v2-agneau-tikka-masala"
+    },
+    {
+        "Category": "Spécialités Agneaux",
+        "Dish": "AGNEAU TIKKA MADRAS",
+        "Description": "Agneau grillé au Tandoor puis ajouté dans une sauce poivrons, oignons, tomates fraîches, crème fraîche, garni de coriandre fraîche.",
+        "Price": "20€",
+        "id": "v2-agneau-tikka-madras"
+    },
+    {
+        "Category": "Spécialités Poissons",
+        "Dish": "POISSON CURRY",
+        "Description": "Filet de poisson cuit dans une sauce curry crème fraîche.",
+        "Price": "11€",
+        "id": "v2-poisson-curry"
+    },
+    {
+        "Category": "Spécialités Poissons",
+        "Dish": "POISSON TOMATE",
+        "Description": "Poisson préparé en sauce, avec tomates fraîches, ail, gingembre et des épices garni de coriandre fraîche.",
+        "Price": "12€",
+        "id": "v2-poisson-tomate"
+    },
+    {
+        "Category": "Spécialités Poissons",
+        "Dish": "POISSON MENTHE",
+        "Description": "Filet de poisson cuit dans une sauce crème à la menthe fraîche et ses épices (ails, gingembre, ...).",
+        "Price": "12€",
+        "id": "v2-poisson-menthe"
+    },
+    {
+        "Category": "Spécialités Poissons",
+        "Dish": "POISSON MADRAS",
+        "Description": "Filet de poisson cuit avec une sauce curry, du lait de coco et garni de coriandre fraîche. Plat du Sud de l'Inde nappé d'une sauce riche et épicée avec graines de moutarde et piment.",
+        "Price": "12€",
+        "id": "v2-poisson-madras"
+    },
+    {
+        "Category": "Spécialités Poissons",
+        "Dish": "POISSON VINDALOO",
+        "Description": "Filet de poisson mariné cuit avec des pommes de terre dans une sauce épicée.",
+        "Price": "14€",
+        "id": "v2-poisson-vindaloo"
+    },
+    {
+        "Category": "Spécialités Poissons",
+        "Dish": "POISSON TIKKA MASALA",
+        "Description": "Saumon mariné dans des épices puis grillé sur brochette dans le tandoor et ajouté dans une savoureuse sauce d'oignons, d'épices, du jus de citron et des tomates fraîches, crème garni de coriandre fraîche.",
+        "Price": "16€",
+        "id": "v2-poisson-tikka-masala"
+    },
+    {
+        "Category": "Spécialités Crevettes et Gambas",
+        "Dish": "CREVETTE CURRY",
+        "Description": "Crevettes cuites dans une riche sauce d'oignons garnies et de tomates garnies de coriandre fraîche. Crème fraîche.",
+        "Price": "13€",
+        "id": "v2-crevette-curry"
+    },
+    {
+        "Category": "Spécialités Crevettes et Gambas",
+        "Dish": "CREVETTE MALAI",
+        "Description": "Crevettes cuites dans une savoureuse sauce à base de pâte de noix de cajou et de lait de coco parfumé de safran. Crème fraîche.",
+        "Price": "15€",
+        "id": "v2-crevette-malai"
+    },
+    {
+        "Category": "Spécialités Crevettes et Gambas",
+        "Dish": "CREVETTE MASSALA",
+        "Description": "Crevettes succulentes sautées dans une riche sauce d'oignons et de tomates, sauce épaisse et assaisonnée. Légèrement épicée.",
+        "Price": "13€",
+        "id": "v2-crevette-massala"
+    },
+    {
+        "Category": "Spécialités Crevettes et Gambas",
+        "Dish": "CREVETTE KORMA",
+        "Description": "Crevettes cuites dans une sauce crémeuse à base d'amandes, d'épices, crème fraîche et d'un soupçon d'ail. Garnies d'amandes.",
+        "Price": "15€",
+        "id": "v2-crevette-korma"
+    },
+    {
+        "Category": "Spécialités Crevettes et Gambas",
+        "Dish": "GAMBAS CURRY",
+        "Description": "Gambas cuites dans une riche sauce d'oignon garnies de coriandre fraîche. Crème fraîche.",
+        "Price": "16€",
+        "id": "v2-gambas-curry"
+    },
+    {
+        "Category": "Spécialités Crevettes et Gambas",
+        "Dish": "GAMBAS KADHAI",
+        "Description": "Gambas à la sauce tomate avec des petits morceaux de gingembre dans la sauce et des épices.",
+        "Price": "17€",
+        "id": "v2-gambas-kadhai"
+    },
+    {
+        "Category": "Spécialités Crevettes et Gambas",
+        "Dish": "GAMBAS MASSALA",
+        "Description": "Gambas sautées dans une riche sauce d'oignons de tomates assaisonnée. Légèrement épicée.",
+        "Price": "17€",
+        "id": "v2-gambas-massala"
+    },
+    {
+        "Category": "Spécialités Crevettes et Gambas",
+        "Dish": "GAMBAS MADRAS",
+        "Description": "Gambas cuites avec des épices grillées à sec, tomates, lait de coco, graines de moutarde et piment grillé, nappées d’une sauce riche et épaisse, plat du sud de l’Inde. Garnies de coriandre fraîche.",
+        "Price": "19€",
+        "id": "v2-gambas-madras"
+    },
+    {
+        "Category": "Légumes",
+        "Dish": "DAAL MAKHNI",
+        "Description": "Plat de lentilles cuites à feu doux et sautées avec des oignons, des épices et des tomates pour une touche finale de saveur crémeuse.",
+        "Price": "10€",
+        "id": "v2-daal-makhni"
+    },
+    {
+        "Category": "Légumes",
+        "Dish": "PALAK PANEER",
+        "Description": "Savoureux morceaux de fromage maison frais cuits avec des épinards et des épices fraîchement moulues. Crème fraîche.",
+        "Price": "10.5€",
+        "id": "v2-palak-paneer"
+    },
+    {
+        "Category": "Légumes",
+        "Dish": "BAIGAN BARTHA",
+        "Description": "Aubergine rôtie cuite avec des oignons, des tomates, et garnie de coriandre fraîche. Crème fraîche.",
+        "Price": "12€",
+        "id": "v2-baigan-bartha"
+    },
+    {
+        "Category": "Légumes",
+        "Dish": "ALOO JEERA",
+        "Description": "Pommes de terre marinées aux graines de cumin et des épices avec sauce curry.",
+        "Price": "9€",
+        "id": "v2-aloo-jeera"
+    },
+    {
+        "Category": "Légumes",
+        "Dish": "KADAI VÉGÉTARIAN CURRY",
+        "Description": "Des légumes mijotés à la sauce curry.",
+        "Price": "10€",
+        "id": "v2-kadai-végétarian-curry"
+    },
+    {
+        "Category": "Légumes",
+        "Dish": "PUNJABI CHANA MASSALA",
+        "Description": "Pois chiches fortement assaisonnés d'oignons, d'ail, de coriandre, de garam masala et de poudre de mangue, donnant à ce plat consistant de la campagne du Punjab une agréable saveur piquante.",
+        "Price": "10€",
+        "id": "v2-punjabi-chana-massala"
+    },
+    {
+        "Category": "Légumes",
+        "Dish": "NAVRATON KORMA",
+        "Description": "Légumes cuits avec des fruits secs et un soupçon de crème, plat garni d'amandes.",
+        "Price": "13€",
+        "id": "v2-navraton-korma"
+    },
+    {
+        "Category": "Biryani",
+        "Dish": "BIRYANI aux légumes",
+        "Description": "Riz basmati parfumé, cuit avec des légumes.",
+        "Price": "15€",
+        "id": "v2-biryani-aux-légumes"
+    },
+    {
+        "Category": "Biryani",
+        "Dish": "BIRYANI poulet",
+        "Description": "Riz basmati parfumé, cuit avec des morceaux de poulet et des fruits secs.",
+        "Price": "17€",
+        "id": "v2-biryani-poulet"
+    },
+    {
+        "Category": "Biryani",
+        "Dish": "BIRYANI agneau",
+        "Description": "Riz basmati parfumé, cuit avec des morceaux d'agneau et des fruits secs.",
+        "Price": "18€",
+        "id": "v2-biryani-agneau"
+    },
+    {
+        "Category": "Biryani",
+        "Dish": "BIRYANI crevettes",
+        "Description": "Riz basmati parfumé, cuit avec des crevettes et des fruits secs.",
+        "Price": "18€",
+        "id": "v2-biryani-crevettes"
+    },
+    {
+        "Category": "Biryani",
+        "Dish": "BIRYANI du chef",
+        "Description": "Riz basmati parfumé, cuit avec des morceaux de blancs de poulet, agneau, crevettes et des fruits secs.",
+        "Price": "20€",
+        "id": "v2-biryani-du-chef"
+    },
+    {
+        "Category": "Riz",
+        "Dish": "RIZ basmati",
+        "Description": "Riz parfumé avec du safran.",
+        "Price": "4€",
+        "id": "v2-riz-basmati"
+    },
+    {
+        "Category": "Riz",
+        "Dish": "RIZ mattar poualo",
+        "Description": "Riz basmati parfumé, cuit avec des oignons, des petits pois, des tomates fraîches et du safran.",
+        "Price": "6€",
+        "id": "v2-riz-mattar-poualo"
+    },
+    {
+        "Category": "Riz",
+        "Dish": "KASHMIRI POUALO",
+        "Description": "Riz basmati parfumé, et des fruits secs (amandes, noix de cajou, raisins secs).",
+        "Price": "6€",
+        "id": "v2-kashmiri-poualo"
+    }
+]
