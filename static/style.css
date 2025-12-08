@@ -1,0 +1,70 @@
+@import "tailwindcss" source(none);
+@source "index.html";
+@source "../index.html";
+@source "../full_order/index.html";
+@source "../order/index.html";
+@source "../stats/index.html";
+@plugin "../daisyui.js";
+
+@plugin "../daisyui.js" {
+  themes: all;
+}
+
+@theme {
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+    50% {
+      transform: rotate(3deg);
+    }
+  }
+}
+
+@utility text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary to-primary
+}
+@utility custom-title {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary to-primary tracking-tighter font-extrabold ;
+}
+
+@utility btn {
+  @apply rounded-full border-base-300 border-1 hover:animate-wiggle ;
+  @apply shadow-xl bg-gradient-to-r from-secondary to-primary text-white text-xl hover:shadow transition ease-in-out;
+}
+
+@utility link {
+  @apply text-secondary
+}
+
+@utility h2 {
+    @apply text-xl p-2 bg-clip-text text-transparent bg-gradient-to-r from-secondary to-primary tracking-tighter font-medium;
+}
+
+#plane {
+  transform-origin: top;
+  animation: loadingAnimation 10s ease-in-out infinite;
+  color: primary;
+}
+
+@keyframes loadingAnimation {
+from {
+    transform: rotate(0deg) translatex(0px);
+}
+10% {
+    transform: rotate(-40deg) translatex(50px) translatey(-100px);
+}
+50% {
+    transform: rotate(-180deg) translatex(50px) translatey(100px);
+}
+  75% {
+    transform: rotate(-360deg) translatex(100px);
+
+  }
+    to {
+    transform: rotate(0deg) translatex(0px);
+
+  }
+}
