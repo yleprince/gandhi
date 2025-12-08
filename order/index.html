@@ -10,7 +10,6 @@
         <style>
 .name {
     text-transform: capitalize;
-
 }
         </style>
     </head>
@@ -50,7 +49,7 @@
 
     </body>
     <script>
-        fetch("/static/menu.json")
+        fetch("/static/menu-2025-10.json")
             .then(data => data.json())
             .then(menu_data => {
                 const menu = document.getElementById("menu");

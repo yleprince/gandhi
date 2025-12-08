@@ -67,7 +67,7 @@
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
         function fromUidToStr(uid) {
-            return capitalizeFirstLetter(uid.replace("_", " ").replace("-", " "))
+            return capitalizeFirstLetter(uid.replace("v2-","").replace("_", " ").replace("-", " "))
         }
 
         function computePrice(price, quantity) {
@@ -78,7 +78,7 @@
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                fetch("/static/menu.json").then(response => response.json()).then(menu => menu.map(d => Array.from([d.id, d.Price])))
+                fetch("/static/menu-2025-10.json").then(response => response.json()).then(menu => menu.map(d => Array.from([d.id, d.Price])))
                     .then(menu => {
                         const priceMap = new Map(menu);
                         const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
@@ -105,8 +105,10 @@
                                 acc[curr.item] = curr.quantity;
                             }
                             return acc;
-                        }, {})).sort((a,b) => b[1] - a[1])
-                        document.getElementById("grouped_orders").innerHTML = grouped.sort((a,b) => a[0] < b[0]).map(([key, value]) => {
+                        }, {}))
+                        document.getElementById("grouped_orders").innerHTML = grouped
+                            .sort((a, b) => a[0].localeCompare(b[0]))
+                            .map(([key, value]) => {
                             return `
                                 <tr>
                                 <td>${fromUidToStr(key)}</td>
@@ -128,6 +130,5 @@
                         document.getElementById('nb-dish').innerHTML = nbDish + " dishes";
                     })
             });
-
     </script>
 </html>
