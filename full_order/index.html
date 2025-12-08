@@ -16,14 +16,15 @@
             <div class="sm:flex sm:flex-row">
                 <div class="grow flex justify-center">
                     <div>
-                        <h2 class="text-xl p-2 text-gradient font-medium">Individual Order</h2>
+                        <h2 class="text-xl p-2 text-gradient font-medium">Individual Orders</h2>
                         <table class="sm:m-6 table rounded-xl shadow-xl">
                             <thead>
                                 <tr>
-                                    <th>User<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th>Dish<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th>Qtity<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th>Price<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+
+                                    <th>User<span class="m-2 loading loading-infinity text-primary"></span></th>
+                                    <th>Dish<span class="m-2 loading loading-infinity text-primary"></span></th>
+                                    <th>Qtity<span class="m-2 loading loading-infinity text-primary"></span></th>
+                                    <th>Price<span class="m-2 loading loading-infinity text-primary"></span></th>
                                 </tr>
                             </thead>
                             <tbody id="all_orders"></tbody>
@@ -32,12 +33,12 @@
                 </div>
                 <div class="grow flex justify-center">
                     <div> 
-                        <h2 class="text-xl text-gradient font-medium p-2 flex">Total Order <div id="nb-dish" class="px-2">XX dishes</div><div id="total-price" class="px-2">XX€</div></h2>
+                        <h2 class="text-xl text-gradient font-medium p-2 flex">Total Order <div id="nb-dish" class="px-2"><span class="loading loading-infinity text-primary"></span> dishes | </div><div id="total-price" class="px-2"><span class="loading loading-infinity text-primary"></span>€</div></h2>
                         <table class="table rounded-xl shadow-xl sm:m-6">
                             <thead >
                                 <tr>
-                                    <th>Dish<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th>Quantity<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th>Dish<span class="m-2 loading loading-infinity text-primary"></span></th>
+                                    <th>Quantity<span class="m-2 loading loading-infinity text-primary"></span></th>
                                 </tr>
                             </thead>
                             <tbody id="grouped_orders"></tbody>
@@ -117,7 +118,7 @@
                                 `;
                         }).join('');
 
-                        const loaders = Array.from(document.getElementsByClassName('loader'));
+                        const loaders = Array.from(document.getElementsByClassName('loading-infinity'));
                         loaders.map(loader => loader.remove());
 
                         const totalPrice = grouped.reduce((acc, curr) => {

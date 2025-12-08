@@ -22,7 +22,7 @@
                             </div>
                             <div class="stat-title">Total Spend</div>
                             <div class="stat-value text-gradient" id="total-price">
-                                <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader">
+                                <span class="loading loading-infinity text-primary"></span>
                             </div>
                         </div>
 
@@ -35,7 +35,7 @@
                             </div>
                             <div class="stat-title">Total Dishes Ordered</div>
                             <div class="stat-value text-gradient" id="nb-dish">
-                                <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader">
+                                <span class="loading loading-infinity text-primary"></span>
                             </div>
                         </div>
 
@@ -47,7 +47,7 @@
                             </div>
                             <div class="stat-title">Number of Users</div>
                             <div class="stat-value text-gradient" id="nb-user">
-                                <img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader">
+                                <span class="loading loading-infinity text-primary"></span>
                             </div>
                         </div>
                     </div>
@@ -63,10 +63,10 @@
                         <table id="user_stats_table" class="sm:m-6 table table-xs bg-base-100 rounded-xl shadow-xl">
                             <thead>
                                 <tr>
-                                    <th class="cursor-pointer" onclick="sortTable(0)">User<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th class="cursor-pointer" onclick="sortTable(1)">Nb Dishes Ordered<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th class="cursor-pointer" onclick="sortTable(2)">Total Price<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
-                                    <th class="cursor-pointer" onclick="sortTable(3)">Favorite Dish<img src="/static/india.png" alt="Loading..." class="w-8 h-8 animate-spin loader"></th>
+                                    <th class="cursor-pointer" onclick="sortTable(0)">User<span class="loading loading-infinity text-primary"></span></th>
+                                    <th class="cursor-pointer" onclick="sortTable(1)">Nb Dishes Ordered<span class="loading loading-infinity text-primary"></th>
+                                    <th class="cursor-pointer" onclick="sortTable(2)">Total Price<span class="loading loading-infinity text-primary"></th>
+                                    <th class="cursor-pointer" onclick="sortTable(3)">Favorite Dish<span class="loading loading-infinity text-primary"></th>
                                 </tr>
                             </thead>
                             <tbody id="user_stats"></tbody>
@@ -185,8 +185,13 @@
                                 <td>${fromUidToStr(favoriteDish.item)}</td>
                                 `;
                             userStatsTable.appendChild(row);
+
                         });
                     })
+
+        const loaders = Array.from(document.getElementsByClassName('loading-infinity'));
+        loaders.map(loader => loader.remove());
+
             });
 
         let sortDirections = {};
@@ -225,6 +230,7 @@
             // Reattach sorted rows
             rows.forEach(row => tbody.appendChild(row));
         }
+
 
     </script>
 </html>
