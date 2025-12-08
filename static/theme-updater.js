@@ -1,5 +1,5 @@
-
-let themes = ["light", "cupcake", "bumblebee", "emerald", "corporate", "valentine", "garden", "lofi", "pastel", "fantasy", "autumn", "halloween", "dark", "dracula", "forest", "aqua", "cmyk", "coffee", "winter", "sunset", "caramellatte", "abyss", "dim", "lemonade", "silk"];
+//let themes = ["light", "cupcake", "bumblebee", "emerald", "corporate", "valentine", "garden", "lofi", "pastel", "fantasy", "autumn", "halloween", "dark", "dracula", "forest", "aqua", "cmyk", "coffee", "winter", "sunset", "caramellatte", "abyss", "dim", "lemonade", "silk"];
+let themes = ["bumblebee"]
 let params = new URLSearchParams(document.location.search);
 let theme = params.get("theme");
 if (theme === null){

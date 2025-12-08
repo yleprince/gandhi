@@ -7,7 +7,6 @@
     'Noto Color Emoji';
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
-    --color-orange-100: oklch(95.4% 0.038 75.164);
     --color-green-500: oklch(72.3% 0.219 149.579);
     --color-pink-500: oklch(65.6% 0.241 354.308);
     --color-black: #000;
@@ -2006,8 +2005,20 @@
     border-style: var(--tw-border-style);
     border-width: 0px;
   }
+  .border-neutral {
+    border-color: var(--color-neutral);
+  }
   .bg-base-100 {
     background-color: var(--color-base-100);
+  }
+  .bg-neutral {
+    background-color: var(--color-neutral);
+  }
+  .bg-neutral-content {
+    background-color: var(--color-neutral-content);
+  }
+  .bg-pink-500 {
+    background-color: var(--color-pink-500);
   }
   .bg-white {
     background-color: var(--color-white);
@@ -2120,11 +2131,14 @@
   .link {
     color: var(--color-secondary);
   }
+  .text-neutral {
+    color: var(--color-neutral);
+  }
+  .text-neutral-content {
+    color: var(--color-neutral-content);
+  }
   .text-primary {
     color: var(--color-primary);
-  }
-  .text-secondary {
-    color: var(--color-secondary);
   }
   .text-white {
     color: var(--color-white);
@@ -2153,13 +2167,6 @@
       }
     }
   }
-  .hover\:bg-orange-100 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-orange-100);
-      }
-    }
-  }
   .hover\:text-green-500 {
     &:hover {
       @media (hover: hover) {
@@ -2171,6 +2178,13 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-pink-500);
+      }
+    }
+  }
+  .hover\:text-primary {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-primary);
       }
     }
   }
