@@ -145,8 +145,6 @@
                         const userStatsTable = document.getElementById('user_stats');
                         userStatsTable.innerHTML = "";
 
-                    console.log("ordered", ordered)
-                    
                         const aggregated = ordered.reduce((acc, { owner, item, quantity }) => {
                             const item_= item.replace("v2-", "")
                             const key = `${owner}-${item_}`;
@@ -156,7 +154,6 @@
                             acc[key].quantity += quantity;
                             return acc;
                         }, {});
-                    console.log("agg", aggregated)
 
                         // Convert the result to an array
                         const result = Object.values(aggregated);
