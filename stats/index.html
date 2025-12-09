@@ -85,7 +85,10 @@
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
         function fromUidToStr(uid) {
-            return capitalizeFirstLetter(uid.replace("v2-").replace("_", " ").replace("-", " "))
+            return cleanUsername(uid.replace("v2-").replace("_", " ").replace("-", " "))
+        }
+        function cleanUsername(string) {
+            return string.trim().toLowerCase().split(" ").map(capitalizeFirstLetter).join(" ")
         }
 
         function computePrice(price, quantity) {
@@ -138,7 +141,7 @@
                         const nbDish = grouped.reduce((acc, curr) => acc + curr[1], 0);
                         document.getElementById('nb-dish').innerHTML = nbDish;
 
-                        const users = new Set(ordered.map(o => o.owner));
+                        const users = new Set(ordered.map(o => fromUidToStr(o.owner)));
                         const nbUser = users.size;
                         document.getElementById('nb-user').innerHTML = nbUser;
 
@@ -159,7 +162,7 @@
                         const result = Object.values(aggregated);
 
                         users.forEach(user => {
-                            const userStats = result.filter(r => r.owner === user);
+                            const userStats = result.filter(r => fromUidToStr(r.owner) === user);
                             const favoriteDish = userStats.reduce((acc, curr) => {
                                 if (acc.quantity < curr.quantity) {
                                     acc = curr;
