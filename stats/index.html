@@ -152,7 +152,6 @@
 
                 loadMenus().then(menu => {
                     const priceMap = new Map(menu);
-                    console.log(priceMap)
 
                 const weekData = data.data
                         .map(d => ({'week': new Date(d.datetime).getWeekNumber(), 'price': d.quantity* parseInt(priceMap.get(d.item).replace("€", ""))}))
@@ -164,7 +163,6 @@
                 }
 
        render52Tiles(document.getElementById("heatmap"), weekSpends, {});
-               console.log(weekSpends)
 
 
                     const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
