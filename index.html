@@ -15,6 +15,16 @@
             </div>
         </div>
 
+        <div id="countdown" class="fixed top-0 right-0 m-12 ">
+            <span class="countdown font-mono text-2xl text-primary">
+                <span id="hcountdown" style="--value:00;" aria-live="polite" aria-label="10">10</span>
+                h
+                <span id="mcountdown" style="--value:00;" aria-live="polite" aria-label="24">24</span>
+                m
+                <span id="scountdown" style="--value:00;" aria-live="polite" aria-label="59">59</span>
+                s
+            </span>
+        </div>
         <div class="flex flex-col sm:flex-row w-full justify-center items-center">
             <a href="/order" class="btn border-0 m-4 shadow-xl text-xl hover:shadow transition ease-in-out w-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -43,16 +53,31 @@
         </div>
     </body>
     <script>
-        // if date is between 1st and 17th of May
-        const date = new Date();
-        const closeDateStart = new Date(date.getFullYear(), 4, 1);
-        const closeDateEnd = new Date(date.getFullYear(), 4, 17);
-        if (date >= closeDateStart && date <= closeDateEnd) {
-            // change the h1
-            const title = document.querySelector('h1');
-            title.textContent = 'Gandhi is closed between May, 1st and the 17th.';
-            document.body.innerHTML = '';
-            document.body.appendChild(title);
+        let commandTime  = new Date();
+        if (commandTime.getHours() > 10){
+            document.getElementById("countdown").remove();
+        } else {
+            commandTime.setDate()
+            commandTime.setHours(11);
+            commandTime.setMinutes(0);
+            commandTime.setMilliseconds(0);
+
+            setInterval(() => {
+                const now = new Date();
+                let remaining = commandTime - now
+                const hours = Math.floor(remaining / 1000 / 3600)
+                remaining -= hours * 1000 * 3600
+
+                const minutes = Math.floor(remaining/1000/60)
+                remaining -= minutes * 1000 * 60
+
+                const seconds = Math.floor(remaining/1000)
+
+                document.getElementById("hcountdown").setAttribute("style", `--value: ${hours}`)
+                document.getElementById("mcountdown").setAttribute("style", `--value: ${minutes}`)
+                document.getElementById("scountdown").setAttribute("style", `--value: ${seconds}`)
+            }, 1000)
+
         }
     </script>
 </html>
