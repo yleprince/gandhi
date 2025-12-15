@@ -53,8 +53,8 @@
                         <div class="stat">
                             <div class="stat-figure text-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-</svg>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                                </svg>
                             </div>
                             <div class="stat-title">Days since last command</div>
                             <div class="stat-value text-gradient" id="nb-days-since-last-command">
@@ -66,11 +66,20 @@
             </div>
         </div>
 
+
+        <div id="layout" class="pb-8">
+            <div class="sm:flex sm:flex-row">
+                <div class="grow flex justify-center">
+                    <div id="heatmap" class="tooltip" data-tip=""></div>
+                </div>
+            </div>
+        </div>
+
+
         <div id="layout" class="pb-8">
             <div class="sm:flex sm:flex-row">
                 <div class="grow flex justify-center">
                     <div>
-                        <h2 class="text-xl p-2 text-neutral font-medium">User Stats</h2>
                         <table id="user_stats_table" class="sm:m-6 table table-xs bg-base-100 rounded-xl shadow-xl">
                             <thead>
                                 <tr>
@@ -91,6 +100,14 @@
     <script>
         const url = "https://script.google.com/macros/s/AKfycbxuRINtkSRYAC7Kle9g5urtW5GBWbjrvS4YCQo-LT9yWqD_Ed9MZ_FAaJcx4EgdvK0xlg/exec"
         const apiUrl = `${url}?action=getAll`;
+
+        Date.prototype.getWeekNumber = function(){
+            var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+            var dayNum = d.getUTCDay() || 7;
+            d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+            var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+            return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
+        };
 
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
@@ -127,86 +144,102 @@
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
+
                 const times = data.data.map(d => new Date(d.datetime)) 
                 const lastCommand = new Date(Math.max(...times.map(d => d.getTime())))
                 const daysSinceLastCommand = ((new Date() - lastCommand) / 1000 / 3600 / 24).toPrecision(2)
                 document.getElementById("nb-days-since-last-command").innerHTML = daysSinceLastCommand
 
                 loadMenus().then(menu => {
-                        const priceMap = new Map(menu);
-                        const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
+                    const priceMap = new Map(menu);
+                    console.log(priceMap)
 
-                        const grouped = Object.entries(ordered.reduce((acc, curr) => {
-                            if (acc[curr.item]) {
-                                acc[curr.item] += curr.quantity;
-                            } else {
-                                acc[curr.item] = curr.quantity;
+                const weekData = data.data
+                        .map(d => ({'week': new Date(d.datetime).getWeekNumber(), 'price': d.quantity* parseInt(priceMap.get(d.item).replace("€", ""))}))
+                
+                var weekSpends = [];
+                for (let i = 1; i < 53; i++) {
+                    const weekSpend = weekData.filter(d=> d.week === i).reduce((acc, curr) => acc + curr.price, 0)
+                    weekSpends.push(weekSpend ? weekSpend : 0)
+                }
+
+       render52Tiles(document.getElementById("heatmap"), weekSpends, {});
+               console.log(weekSpends)
+
+
+                    const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
+
+                    const grouped = Object.entries(ordered.reduce((acc, curr) => {
+                        if (acc[curr.item]) {
+                            acc[curr.item] += curr.quantity;
+                        } else {
+                            acc[curr.item] = curr.quantity;
+                        }
+                        return acc;
+                    }, {})).sort((a,b) => b[1] - a[1])
+
+                    const loaders = Array.from(document.getElementsByClassName('loader'));
+                    loaders.map(loader => loader.remove());
+
+                    const totalPrice = grouped.reduce((acc, curr) => {
+                        const price = priceMap.get(curr[0].replace("v2-", ""));
+                        return acc + computePrice(price, curr[1]);
+                    }, 0);
+                    document.getElementById('total-price').innerHTML = totalPrice ;
+
+                    const nbDish = grouped.reduce((acc, curr) => acc + curr[1], 0);
+                    document.getElementById('nb-dish').innerHTML = nbDish;
+
+                    const users = new Set(ordered.map(o => fromUidToStr(o.owner)));
+                    const nbUser = users.size;
+                    document.getElementById('nb-user').innerHTML = nbUser;
+
+                    const userStatsTable = document.getElementById('user_stats');
+                    userStatsTable.innerHTML = "";
+
+                    const aggregated = ordered.reduce((acc, { owner, item, quantity }) => {
+                        const item_= item.replace("v2-", "")
+                        const key = `${owner}-${item_}`;
+                        if (!acc[key]) {
+                            acc[key] = { owner, item:item_, quantity: 0 };
+                        }
+                        acc[key].quantity += quantity;
+                        return acc;
+                    }, {});
+
+                    // Convert the result to an array
+                    const result = Object.values(aggregated);
+
+                    users.forEach(user => {
+                        const userStats = result.filter(r => fromUidToStr(r.owner) === user);
+                        const favoriteDish = userStats.reduce((acc, curr) => {
+                            if (acc.quantity < curr.quantity) {
+                                acc = curr;
                             }
                             return acc;
-                        }, {})).sort((a,b) => b[1] - a[1])
+                        }, { quantity: 0 });
 
-                        const loaders = Array.from(document.getElementsByClassName('loader'));
-                        loaders.map(loader => loader.remove());
-
-                        const totalPrice = grouped.reduce((acc, curr) => {
-                            const price = priceMap.get(curr[0].replace("v2-", ""));
-                            return acc + computePrice(price, curr[1]);
+                        const totalPrice = userStats.reduce((acc, curr) => {
+                            const price = priceMap.get(curr.item);
+                            return acc + computePrice(price, curr.quantity);
                         }, 0);
-                        document.getElementById('total-price').innerHTML = totalPrice ;
 
-                        const nbDish = grouped.reduce((acc, curr) => acc + curr[1], 0);
-                        document.getElementById('nb-dish').innerHTML = nbDish;
+                        const totalDishes = userStats.reduce((acc, curr) => acc + curr.quantity, 0);
 
-                        const users = new Set(ordered.map(o => fromUidToStr(o.owner)));
-                        const nbUser = users.size;
-                        document.getElementById('nb-user').innerHTML = nbUser;
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${fromUidToStr(user)}</td>
+                            <td>${totalDishes}</td>
+                            <td>${totalPrice}</td>
+                            <td>${fromUidToStr(favoriteDish.item)}</td>
+                            `;
+                        userStatsTable.appendChild(row);
 
-                        const userStatsTable = document.getElementById('user_stats');
-                        userStatsTable.innerHTML = "";
+                    });
+                })
 
-                        const aggregated = ordered.reduce((acc, { owner, item, quantity }) => {
-                            const item_= item.replace("v2-", "")
-                            const key = `${owner}-${item_}`;
-                            if (!acc[key]) {
-                                acc[key] = { owner, item:item_, quantity: 0 };
-                            }
-                            acc[key].quantity += quantity;
-                            return acc;
-                        }, {});
-
-                        // Convert the result to an array
-                        const result = Object.values(aggregated);
-
-                        users.forEach(user => {
-                            const userStats = result.filter(r => fromUidToStr(r.owner) === user);
-                            const favoriteDish = userStats.reduce((acc, curr) => {
-                                if (acc.quantity < curr.quantity) {
-                                    acc = curr;
-                                }
-                                return acc;
-                            }, { quantity: 0 });
-
-                            const totalPrice = userStats.reduce((acc, curr) => {
-                                const price = priceMap.get(curr.item);
-                                return acc + computePrice(price, curr.quantity);
-                            }, 0);
-
-                            const totalDishes = userStats.reduce((acc, curr) => acc + curr.quantity, 0);
-
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                                <td>${fromUidToStr(user)}</td>
-                                <td>${totalDishes}</td>
-                                <td>${totalPrice}</td>
-                                <td>${fromUidToStr(favoriteDish.item)}</td>
-                                `;
-                            userStatsTable.appendChild(row);
-
-                        });
-                    })
-
-        const loaders = Array.from(document.getElementsByClassName('loading-infinity'));
-        loaders.map(loader => loader.remove());
+                const loaders = Array.from(document.getElementsByClassName('loading-infinity'));
+                loaders.map(loader => loader.remove());
 
             });
 
@@ -249,4 +282,124 @@
 
 
     </script>
+    <script>
+        function getDateOfWeek(y, w) {
+            var d = (1 + (w - 1) * 7)-2; // 1st of January + 7 days for each week
+            return new Date(y, 0, d);
+        }
+      function render52Tiles(container, values, opts = {}) {
+        if (!Array.isArray(values) || values.length !== 52) {
+          throw new Error(`render52Tiles: "values" must be an array of length 52 (got ${values?.length}).`);
+        }
+
+        const {
+          cols = 13,
+          tile = 24,
+          gap = 6,
+          pad = 8,
+          radius = 4,
+          // scale range (if not provided, inferred from data)
+          vMin = Math.min(...values),
+          vMax = Math.max(...values),
+          // colormap endpoints
+          colorLow = "#fff",
+          colorHigh = "#FF8A00",
+          // hover behavior: show random int but do NOT change the underlying input values
+          hoverMin = 0,
+          hoverMax = 100,
+        } = opts;
+
+        const rows = Math.ceil(52 / cols);
+        const svgNS = "http://www.w3.org/2000/svg";
+        const width  = pad * 2 + cols * tile + (cols - 1) * gap;
+        const height = pad * 2 + rows * tile + (rows - 1) * gap;
+
+        // --- color helpers ---
+        const clamp01 = (t) => Math.max(0, Math.min(1, t));
+        const lerp = (a, b, t) => a + (b - a) * t;
+
+        function hexToRgb(hex) {
+          const h = hex.replace("#", "").trim();
+          const full = h.length === 3 ? h.split("").map(c => c + c).join("") : h;
+          const n = parseInt(full, 16);
+          return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+        }
+        function rgbToHex(r, g, b) {
+          const to2 = (x) => x.toString(16).padStart(2, "0");
+          return `#${to2(r)}${to2(g)}${to2(b)}`;
+        }
+
+        const c0 = hexToRgb(colorLow);
+        const c1 = hexToRgb(colorHigh);
+
+        function valueToColor(v) {
+          // handle constant range
+          const denom = (vMax - vMin) || 1;
+          const t = clamp01((v - vMin) / denom);
+          const r = Math.round(lerp(c0[0], c1[0], t));
+          const g = Math.round(lerp(c0[1], c1[1], t));
+          const b = Math.round(lerp(c0[2], c1[2], t));
+          return rgbToHex(r, g, b);
+        }
+
+        // Clear container (optional; remove if you want multiple svgs)
+        container.textContent = "";
+
+        const svg = document.createElementNS(svgNS, "svg");
+        svg.setAttribute("width", width);
+        svg.setAttribute("height", height);
+        svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        svg.classList.add("rounded-xl")
+        svg.classList.add("bg-base-100")
+        svg.classList.add("shadow")
+
+
+        for (let i = 0; i < 52; i++) {
+          const r = Math.floor(i / cols);
+          const c = i % cols;
+          const x = pad + c * (tile + gap);
+          const y = pad + r * (tile + gap);
+
+          const g = document.createElementNS(svgNS, "g");
+          g.classList.add("tile");
+          g.classList.add("shadow-xl")
+
+
+          const rect = document.createElementNS(svgNS, "rect");
+          rect.classList.add("tile-rect");
+          rect.classList.add("stroke-base-300");
+          rect.classList.add("rounded-xl");
+          rect.classList.add("shadow-xl")
+          rect.setAttribute("x", x);
+          rect.setAttribute("y", y);
+          rect.setAttribute("rx", radius);
+          rect.setAttribute("width", tile);
+          rect.setAttribute("height", tile);
+          rect.setAttribute("fill", valueToColor(values[51-i]));
+
+          const text = document.createElementNS(svgNS, "text");
+          text.classList.add("tile-label");
+          text.setAttribute("x", x + tile / 2);
+          text.setAttribute("y", y + tile / 2 + 4);
+          text.setAttribute("text-anchor", "middle");
+
+          g.addEventListener("mouseenter", () => {
+              document.getElementById("heatmap").setAttribute("data-tip", `${values[51-i]}€ spent for week ${getDateOfWeek(2025, 51-i+1).toLocaleDateString()}`)
+              rect.classList.add("stroke-base-content");
+          });
+
+          g.addEventListener("mouseleave", () => {
+             rect.classList.remove("stroke-base-content");
+          });
+
+          g.appendChild(rect);
+          g.appendChild(text);
+          svg.appendChild(g);
+        }
+
+        container.appendChild(svg);
+
+      }
+    </script>
+
 </html>
