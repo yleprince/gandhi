@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SVG 52 Tiles – Hover Random</title>
+    <style>
+      body { padding: 16px; font-family: system-ui, sans-serif; }
+      svg { display: block; }
+    </style>
+  </head>
+  <body>
+    <script>
+      const TILE_COUNT = 52;
+      const cols = 13;
+      const rows = Math.ceil(TILE_COUNT / cols);
+
+      const tile = 24;
+      const gap = 6;
+      const pad = 8;
+      const radius = 4;
+
+      const svgNS = "http://www.w3.org/2000/svg";
+
+      const width  = pad * 2 + cols * tile + (cols - 1) * gap;
+      const height = pad * 2 + rows * tile + (rows - 1) * gap;
+
+      const svg = document.createElementNS(svgNS, "svg");
+      svg.setAttribute("width", width);
+      svg.setAttribute("height", height);
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+      for (let i = 0; i < TILE_COUNT; i++) {
+        const r = Math.floor(i / cols);
+        const c = i % cols;
+
+        const x = pad + c * (tile + gap);
+        const y = pad + r * (tile + gap);
+
+        const g = document.createElementNS(svgNS, "g");
+        g.style.cursor = "pointer";
+
+        const rect = document.createElementNS(svgNS, "rect");
+        rect.setAttribute("x", x);
+        rect.setAttribute("y", y);
+        rect.setAttribute("width", tile);
+        rect.setAttribute("height", tile);
+        rect.setAttribute("rx", radius);
+        rect.setAttribute("fill", "#f3f4f6");
+        rect.setAttribute("stroke", "#cbd5e1");
+
+        const text = document.createElementNS(svgNS, "text");
+        text.setAttribute("x", x + tile / 2);
+        text.setAttribute("y", y + tile / 2 + 4);
+        text.setAttribute("text-anchor", "middle");
+        text.setAttribute("font-size", "10");
+        text.setAttribute("fill", "#0f172a");
+        text.style.pointerEvents = "none"; // let hover hit the rect
+
+        g.addEventListener("mouseenter", () => {
+          text.textContent = Math.floor(Math.random() * 100); // random int 0–99
+          rect.setAttribute("fill", "#e2e8f0");
+        });
+
+        g.addEventListener("mouseleave", () => {
+          text.textContent = "";
+          rect.setAttribute("fill", "#f3f4f6");
+        });
+
+        g.appendChild(rect);
+        g.appendChild(text);
+        svg.appendChild(g);
+      }
+
+      document.body.appendChild(svg);
+    </script>
+  </body>
+</html>
+

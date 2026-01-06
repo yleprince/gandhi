@@ -7,6 +7,7 @@
         <link rel="icon" href="/static/india.png">
         <link href="/static/build.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="/static/theme-updater.js"></script>
+        <script type="text/javascript" src="/stats/utils.js"></script>
     </head>
     <body class="min-h-screen bg-gradient">
         <div id="layout" class="pb-8">
@@ -70,7 +71,7 @@
         <div id="layout" class="pb-8">
             <div class="sm:flex sm:flex-row">
                 <div class="grow flex justify-center">
-                    <div id="heatmap" class="tooltip" data-tip=""></div>
+                    <div id="heatmap2025" class="tooltip" data-tip=""></div>
                 </div>
             </div>
         </div>
@@ -84,9 +85,10 @@
                             <thead>
                                 <tr>
                                     <th class="cursor-pointer" onclick="sortTable(0)">User<span class="loading loading-infinity text-primary"></span></th>
-                                    <th class="cursor-pointer" onclick="sortTable(1)">Nb Dishes Ordered<span class="loading loading-infinity text-primary"></th>
-                                    <th class="cursor-pointer" onclick="sortTable(2)">Total Price<span class="loading loading-infinity text-primary"></th>
-                                    <th class="cursor-pointer" onclick="sortTable(3)">Favorite Dish<span class="loading loading-infinity text-primary"></th>
+                                    <th class="cursor-pointer" onclick="sortTable(1)">Total Spend<span class="loading loading-infinity text-primary"></th>
+                                    <th class="cursor-pointer" onclick="sortTable(2)">#Dishes Ordered<span class="loading loading-infinity text-primary"></th>
+                                    <th class="cursor-pointer" onclick="sortTable(3)">#Distinct Dish<span class="loading loading-infinity text-primary"></th>
+                                    <th class="cursor-pointer" onclick="sortTable(4)">Favorite Dish<span class="loading loading-infinity text-primary"></th>
                                 </tr>
                             </thead>
                             <tbody id="user_stats"></tbody>
@@ -97,49 +99,10 @@
         </div>
 
     </body>
+    <script type="text/javascript" src="/stats/heatmap.js"></script>
     <script>
         const url = "https://script.google.com/macros/s/AKfycbxuRINtkSRYAC7Kle9g5urtW5GBWbjrvS4YCQo-LT9yWqD_Ed9MZ_FAaJcx4EgdvK0xlg/exec"
         const apiUrl = `${url}?action=getAll`;
-
-        Date.prototype.getWeekNumber = function(){
-            var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
-            var dayNum = d.getUTCDay() || 7;
-            d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-            var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
-            return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
-        };
-
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-        function fromUidToStr(uid) {
-            return cleanUsername(uid.replace("v2-").replace("_", " ").replace("-", " "))
-        }
-        function cleanUsername(string) {
-            return string.trim().toLowerCase().split(" ").map(capitalizeFirstLetter).join(" ")
-        }
-
-        function computePrice(price, quantity) {
-            const price_ = parseFloat(price.substring(0, price.length - 1))
-            return price_ * quantity;
-        }
-
-        const loadMenus = async () => {
-            const [menuA, menuB] = await Promise.all([
-                fetch("/static/menu.json").then(r => r.json()),
-                fetch("/static/menu-2025-10.json").then(r => r.json())
-            ]);
-
-
-            // Normalize and map the two datasets
-            const entriesA = menuA.map(d => [d.id, d.Price]);
-            const entriesB = menuB.map(d => [d.id, d.Price]);
-
-            // Merge into a single Map (second array overrides first on duplicate IDs)
-            const merged = new Map([...entriesA, ...entriesB]);
-            return merged;
-        };
-
 
         fetch(apiUrl)
             .then(response => response.json())
@@ -153,16 +116,10 @@
                 loadMenus().then(menu => {
                     const priceMap = new Map(menu);
 
-                const weekData = data.data
-                        .map(d => ({'week': new Date(d.datetime).getWeekNumber(), 'price': d.quantity* parseInt(priceMap.get(d.item).replace("€", ""))}))
-                
-                var weekSpends = [];
-                for (let i = 1; i < 53; i++) {
-                    const weekSpend = weekData.filter(d=> d.week === i).reduce((acc, curr) => acc + curr.price, 0)
-                    weekSpends.push(weekSpend ? weekSpend : 0)
-                }
+                    const weekData2025 = extractWeeklyData(data, priceMap, 2025);
+                    const weekData2026 = extractWeeklyData(data, priceMap, 2026);
 
-       render52Tiles(document.getElementById("heatmap"), weekSpends, {});
+                    render52Tiles("heatmap2025", computeWeeklySpend(weekData2025), {});
 
 
                     const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
@@ -209,7 +166,11 @@
                     const result = Object.values(aggregated);
 
                     users.forEach(user => {
+
                         const userStats = result.filter(r => fromUidToStr(r.owner) === user);
+                        const distinctDishes = new Set(userStats.map(r => r.item));
+                        const nbDistinctDishes = distinctDishes.size;
+
                         const favoriteDish = userStats.reduce((acc, curr) => {
                             if (acc.quantity < curr.quantity) {
                                 acc = curr;
@@ -227,8 +188,9 @@
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${fromUidToStr(user)}</td>
-                            <td>${totalDishes}</td>
                             <td>${totalPrice}</td>
+                            <td>${totalDishes}</td>
+                            <td>${nbDistinctDishes}</td>
                             <td>${fromUidToStr(favoriteDish.item)}</td>
                             `;
                         userStatsTable.appendChild(row);
@@ -280,124 +242,4 @@
 
 
     </script>
-    <script>
-        function getDateOfWeek(y, w) {
-            var d = (1 + (w - 1) * 7)-2; // 1st of January + 7 days for each week
-            return new Date(y, 0, d);
-        }
-      function render52Tiles(container, values, opts = {}) {
-        if (!Array.isArray(values) || values.length !== 52) {
-          throw new Error(`render52Tiles: "values" must be an array of length 52 (got ${values?.length}).`);
-        }
-
-        const {
-          cols = 13,
-          tile = 24,
-          gap = 6,
-          pad = 8,
-          radius = 4,
-          // scale range (if not provided, inferred from data)
-          vMin = Math.min(...values),
-          vMax = Math.max(...values),
-          // colormap endpoints
-          colorLow = "#fff",
-          colorHigh = "#FF8A00",
-          // hover behavior: show random int but do NOT change the underlying input values
-          hoverMin = 0,
-          hoverMax = 100,
-        } = opts;
-
-        const rows = Math.ceil(52 / cols);
-        const svgNS = "http://www.w3.org/2000/svg";
-        const width  = pad * 2 + cols * tile + (cols - 1) * gap;
-        const height = pad * 2 + rows * tile + (rows - 1) * gap;
-
-        // --- color helpers ---
-        const clamp01 = (t) => Math.max(0, Math.min(1, t));
-        const lerp = (a, b, t) => a + (b - a) * t;
-
-        function hexToRgb(hex) {
-          const h = hex.replace("#", "").trim();
-          const full = h.length === 3 ? h.split("").map(c => c + c).join("") : h;
-          const n = parseInt(full, 16);
-          return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
-        }
-        function rgbToHex(r, g, b) {
-          const to2 = (x) => x.toString(16).padStart(2, "0");
-          return `#${to2(r)}${to2(g)}${to2(b)}`;
-        }
-
-        const c0 = hexToRgb(colorLow);
-        const c1 = hexToRgb(colorHigh);
-
-        function valueToColor(v) {
-          // handle constant range
-          const denom = (vMax - vMin) || 1;
-          const t = clamp01((v - vMin) / denom);
-          const r = Math.round(lerp(c0[0], c1[0], t));
-          const g = Math.round(lerp(c0[1], c1[1], t));
-          const b = Math.round(lerp(c0[2], c1[2], t));
-          return rgbToHex(r, g, b);
-        }
-
-        // Clear container (optional; remove if you want multiple svgs)
-        container.textContent = "";
-
-        const svg = document.createElementNS(svgNS, "svg");
-        svg.setAttribute("width", width);
-        svg.setAttribute("height", height);
-        svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-        svg.classList.add("rounded-xl")
-        svg.classList.add("bg-base-100")
-        svg.classList.add("shadow")
-
-
-        for (let i = 0; i < 52; i++) {
-          const r = Math.floor(i / cols);
-          const c = i % cols;
-          const x = pad + c * (tile + gap);
-          const y = pad + r * (tile + gap);
-
-          const g = document.createElementNS(svgNS, "g");
-          g.classList.add("tile");
-          g.classList.add("shadow-xl")
-
-
-          const rect = document.createElementNS(svgNS, "rect");
-          rect.classList.add("tile-rect");
-          rect.classList.add("stroke-base-300");
-          rect.classList.add("rounded-xl");
-          rect.classList.add("shadow-xl")
-          rect.setAttribute("x", x);
-          rect.setAttribute("y", y);
-          rect.setAttribute("rx", radius);
-          rect.setAttribute("width", tile);
-          rect.setAttribute("height", tile);
-          rect.setAttribute("fill", valueToColor(values[51-i]));
-
-          const text = document.createElementNS(svgNS, "text");
-          text.classList.add("tile-label");
-          text.setAttribute("x", x + tile / 2);
-          text.setAttribute("y", y + tile / 2 + 4);
-          text.setAttribute("text-anchor", "middle");
-
-          g.addEventListener("mouseenter", () => {
-              document.getElementById("heatmap").setAttribute("data-tip", `${values[51-i]}€ spent for week ${getDateOfWeek(2025, 51-i+1).toLocaleDateString()}`)
-              rect.classList.add("stroke-base-content");
-          });
-
-          g.addEventListener("mouseleave", () => {
-             rect.classList.remove("stroke-base-content");
-          });
-
-          g.appendChild(rect);
-          g.appendChild(text);
-          svg.appendChild(g);
-        }
-
-        container.appendChild(svg);
-
-      }
-    </script>
-
 </html>
