@@ -10,10 +10,44 @@
     </head>
     <body class="min-h-screen">
 
-
         <div id="layout" class="pb-8">
             <h1 class="text-6xl sm:text-8xl custom-title py-6 px-4" id="date-h1">2025-01-01</h1>
             <div class="sm:flex sm:flex-row">
+
+                <div id="chat" class="m-4 min-w-xs hidden">
+                    <div id="yrieix-command" class="chat chat-start">
+                        <div class="chat-image avatar">
+                            <div class="w-10 rounded-full">
+                                <img
+                                alt="Tailwind CSS chat bubble component"
+                                src="/static/profile_gibli.png"
+                                />
+                            </div>
+                        </div>
+                        <div class="chat-header">
+                            Yrieix
+                            <time class="text-xs opacity-50" id="yrieix-command-time">11:00</time>
+                        </div>
+                        <div class="chat-bubble bg-primary/20 shadow-md" id="yrieix-command-body">Error if you can read this</div>
+                        <div class="chat-footer opacity-50">Delivered</div>
+                    </div>
+                    <div id="gandhi-reply" class="chat chat-end">
+                        <div class="chat-image avatar">
+                            <div class="w-10 rounded-full">
+                                <img
+                                alt="Tailwind CSS chat bubble component"
+                                src="/static/gandhi-glasses.gif"
+                                />
+                            </div>
+                        </div>
+                        <div class="chat-header">
+                            Gandhi
+                            <time class="text-xs opacity-50" id="gandhi-reply-time">command not confirmed</time>
+                        </div>
+                        <div class="chat-bubble shadow-md" id="gandhi-reply-content"><span class="loading loading-dots text-primary"></span></div>
+                    </div>
+                </div>
+
                 <div class="grow flex justify-center">
                     <div>
                         <h2 class="text-xl p-2 text-gradient font-medium">Individual Orders</h2>
@@ -54,6 +88,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
             </svg>
         </div>
+
     </body>
     <script>
         console.log("Hello Gandhi User 🫵!\nIn case of error for the command you can manually edit the google sheet");
@@ -110,13 +145,13 @@
                         document.getElementById("grouped_orders").innerHTML = grouped
                             .sort((a, b) => a[0].localeCompare(b[0]))
                             .map(([key, value]) => {
-                            return `
-                                <tr>
-                                <td>${fromUidToStr(key)}</td>
-                                <td>${value}</td>
-                                </tr>
-                                `;
-                        }).join('');
+                                return `
+                                    <tr>
+                                    <td>${fromUidToStr(key)}</td>
+                                    <td>${value}</td>
+                                    </tr>
+                                    `;
+                            }).join('');
 
                         const loaders = Array.from(document.getElementsByClassName('loading-infinity'));
                         loaders.map(loader => loader.remove());
@@ -130,6 +165,38 @@
                         const nbDish = grouped.reduce((acc, curr) => acc + curr[1], 0);
                         document.getElementById('nb-dish').innerHTML = nbDish + " dishes";
                     })
+            });
+    </script>
+    <script>
+        fetch("https://n8n.yrieix.com/webhook/463e849d-1a72-43fe-8abb-aa18957816f6")
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0){
+                    document.getElementById("chat").classList.remove("hidden");
+                }
+                console.log(data);
+                let commandMessage = data.filter(m => m.sender != "sophie")
+                console.log(commandMessage);
+                if (commandMessage.length > 0){
+                    const command = commandMessage[0];
+                    const commandTime = new Date(command.createdAt);
+                    document.getElementById("yrieix-command-time").innerHTML = (commandTime.getHours() -2).toString().padStart(2, '0') + ":" + commandTime.getMinutes().toString().padStart(2, '0');
+                    document.getElementById("yrieix-command-body").innerHTML = command.message.replace("Sent from your Twilio trial account - ","").split("\n").join("<br>");
+                }
+                let replyMessage = data.filter(m => m.sender == "sophie")
+                console.log(replyMessage);
+                if (replyMessage.length > 0){
+                    const reply = replyMessage[replyMessage.length -1];
+                    const replyTime = new Date(reply.createdAt);
+                    document.getElementById("gandhi-reply-time").innerHTML = (replyTime.getHours() -2).toString().padStart(2, '0') + ":" + replyTime.getMinutes().toString().padStart(2, '0');
+                    if (reply.confirmation == "confirmée ✅"){
+                        document.getElementById("gandhi-reply-content").classList.add("bg-green-200/50");
+                        document.getElementById("gandhi-reply-content").innerHTML = reply.message.split("\n").join("<br>") + "<br>" +  `Pickup: <code>${reply.PickUp}</code>`;
+                    } else {
+                        document.getElementById("gandhi-reply-content").classList.add("bg-red-200/50");
+                        document.getElementById("gandhi-reply-content").innerHTML = reply.message.split("\n").join("<br>");
+                    }
+                }
             });
     </script>
 </html>
