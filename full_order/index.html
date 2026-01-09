@@ -174,17 +174,19 @@
                 if (data.length > 0){
                     document.getElementById("chat").classList.remove("hidden");
                 }
-                console.log(data);
                 let commandMessage = data.filter(m => m.sender != "sophie")
-                console.log(commandMessage);
                 if (commandMessage.length > 0){
                     const command = commandMessage[0];
                     const commandTime = new Date(command.createdAt);
                     document.getElementById("yrieix-command-time").innerHTML = (commandTime.getHours() -2).toString().padStart(2, '0') + ":" + commandTime.getMinutes().toString().padStart(2, '0');
-                    document.getElementById("yrieix-command-body").innerHTML = command.message.replace("Sent from your Twilio trial account - ","").split("\n").join("<br>");
+                    document.getElementById("yrieix-command-body").innerHTML = command
+                        .message
+                        .replace("Sent from your Twilio trial account - ","")
+                        .replace("Confirmer/Annuler la commande: https://n8n.yrieix.com/form/criteo", "")
+                        .split("\n")
+                        .join("<br>");
                 }
                 let replyMessage = data.filter(m => m.sender == "sophie")
-                console.log(replyMessage);
                 if (replyMessage.length > 0){
                     const reply = replyMessage[replyMessage.length -1];
                     const replyTime = new Date(reply.createdAt);
