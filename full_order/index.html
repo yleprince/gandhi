@@ -190,7 +190,7 @@
                 if (replyMessage.length > 0){
                     const reply = replyMessage[replyMessage.length -1];
                     const replyTime = new Date(reply.createdAt);
-                    document.getElementById("gandhi-reply-time").innerHTML = (replyTime.getHours() -2).toString().padStart(2, '0') + ":" + replyTime.getMinutes().toString().padStart(2, '0');
+                    document.getElementById("gandhi-reply-time").innerHTML = (replyTime.getHours()).toString().padStart(2, '0') + ":" + replyTime.getMinutes().toString().padStart(2, '0');
                     if (reply.confirmation == "confirmée ✅"){
                         document.getElementById("gandhi-reply-content").classList.add("bg-green-200/50");
                         document.getElementById("gandhi-reply-content").innerHTML = reply.message.split("\n").join("<br>") + "<br>" +  `Pickup: <code>${reply.PickUp}</code>`;
