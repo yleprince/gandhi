@@ -88,7 +88,8 @@
                                     <th class="cursor-pointer" onclick="sortTable(1)">Total Spend<span class="loading loading-infinity text-primary"></th>
                                     <th class="cursor-pointer" onclick="sortTable(2)">#Dishes Ordered<span class="loading loading-infinity text-primary"></th>
                                     <th class="cursor-pointer" onclick="sortTable(3)">#Distinct Dish<span class="loading loading-infinity text-primary"></th>
-                                    <th class="cursor-pointer" onclick="sortTable(4)">Favorite Dish<span class="loading loading-infinity text-primary"></th>
+                                    <th class="cursor-pointer" onclick="sortTable(4)">Avg Dish price<span class="loading loading-infinity text-primary"></th>
+                                    <th class="cursor-pointer" onclick="sortTable(5)">Favorite Dish<span class="loading loading-infinity text-primary"></th>
                                 </tr>
                             </thead>
                             <tbody id="user_stats"></tbody>
@@ -191,6 +192,7 @@
                             <td>${totalPrice}</td>
                             <td>${totalDishes}</td>
                             <td>${nbDistinctDishes}</td>
+                            <td>${Math.floor(10 * totalPrice/totalDishes)/10}</td>
                             <td>${fromUidToStr(favoriteDish.item)}</td>
                             `;
                         userStatsTable.appendChild(row);
