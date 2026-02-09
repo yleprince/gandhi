@@ -186,15 +186,14 @@
             });
 
         async function addOrder(payload) {
-            const url = "https://script.google.com/macros/s/AKfycbxuRINtkSRYAC7Kle9g5urtW5GBWbjrvS4YCQo-LT9yWqD_Ed9MZ_FAaJcx4EgdvK0xlg/exec"
-            const apiUrl = `${url}?${payload}`;
             try {
-                const response = await fetch(apiUrl, { method: 'POST' });
-                const result = await response.json();
-                if (result.status === 'success') {
+                const n8nWebhookUrl = "https://n8n.yrieix.com/webhook/40c16458-56bc-4aa1-bb63-5fab4c4e0327";
+                const n8nUrl = `${n8nWebhookUrl}?${payload}`;
+                const n8nResponse = await fetch(n8nUrl, { method: 'POST' });
+                if (n8nResponse.status === 200) {
                     document.location.href = "/full_order"
                 } else {
-                    alert('Failed to add order: ' + result.message);
+                    alert('Failed to add order. Please try again.');
                 }
             } catch (error) {
                 console.error('Error adding order:', error);

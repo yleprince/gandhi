@@ -111,13 +111,15 @@
             return price_ * quantity;
         }
 
-        fetch(apiUrl)
+        fetch("https://n8n.yrieix.com/webhook/gandhi-fetch-orders")
             .then(response => response.json())
             .then(data => {
-                fetch("/static/menu-2025-10.json").then(response => response.json()).then(menu => menu.map(d => Array.from([d.id, d.Price])))
+                fetch("/static/menu-2025-10.json")
+                    .then(response => response.json())
+                    .then(menu => menu.map(d => Array.from([d.id, d.Price])))
                     .then(menu => {
                         const priceMap = new Map(menu);
-                        const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
+                        const ordered = data.sort((a, b) => a.owner.localeCompare(b.owner));
                         var previousOwner = "";
                         document.getElementById('all_orders').innerHTML = ordered.map(order => {
                             const tr = `
