@@ -1,6 +1,5 @@
 function extractWeeklyData(data, priceMap, year) {
     return data
-        .data
         .filter(d => new Date(d.datetime).getFullYear() === year)
         .map(d => (
             {

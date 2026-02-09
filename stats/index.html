@@ -103,14 +103,11 @@
     </body>
     <script type="text/javascript" src="/stats/heatmap.js"></script>
     <script>
-        const url = "https://script.google.com/macros/s/AKfycbxuRINtkSRYAC7Kle9g5urtW5GBWbjrvS4YCQo-LT9yWqD_Ed9MZ_FAaJcx4EgdvK0xlg/exec"
-        const apiUrl = `${url}?action=getAll`;
-
-        fetch(apiUrl)
+        fetch("https://n8n.yrieix.com/webhook/gandhi-get-all")
             .then(response => response.json())
             .then(data => {
 
-                const times = data.data.map(d => new Date(d.datetime)) 
+                const times = data.map(d => new Date(d.datetime)) 
                 const lastCommand = new Date(Math.max(...times.map(d => d.getTime())))
                 const daysSinceLastCommand = ((new Date() - lastCommand) / 1000 / 3600 / 24).toPrecision(2)
                 document.getElementById("nb-days-since-last-command").innerHTML = daysSinceLastCommand
@@ -124,7 +121,7 @@
                     render52Tiles("heatmap2025", computeWeeklySpend(weekData2025), {});
 
 
-                    const ordered = data.data.sort((a, b) => a.owner.localeCompare(b.owner));
+                    const ordered = data.sort((a, b) => a.owner.localeCompare(b.owner));
 
                     const grouped = Object.entries(ordered.reduce((acc, curr) => {
                         if (acc[curr.item]) {
