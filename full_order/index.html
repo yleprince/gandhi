@@ -103,13 +103,8 @@
         </dialog>
     </body>
     <script>
-        console.log("Hello Gandhi User 🫵!\nIn case of error for the command you can manually edit the google sheet");
-        console.log("https://docs.google.com/spreadsheets/d/1u5HdwJuoFV40RaJuqw6emRy0F7fUUFEEPnP9-PL2MU0/edit?usp=sharing");
-        console.log("⚠️  This is irreversible, be careful ⚠️");
         const date = new Date().toISOString().split('T')[0];
         document.getElementById('date-h1').innerHTML = date;
-        const url = "https://script.google.com/macros/s/AKfycbxuRINtkSRYAC7Kle9g5urtW5GBWbjrvS4YCQo-LT9yWqD_Ed9MZ_FAaJcx4EgdvK0xlg/exec"
-        const apiUrl = `${url}?action=getByDate&date=${date}`;
 
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
