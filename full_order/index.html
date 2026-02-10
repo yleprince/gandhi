@@ -89,6 +89,18 @@
             </svg>
         </div>
 
+        <dialog id="confirm_delete_modal" class="modal">
+            <div class="modal-box">
+                <h3 class="text-xl font-bold text-orange-600 p-4">⚠️ Irreversible action ⚠️</h3>
+                <p>Are you sure to delete <span id="item_to_delete" class="text-orange-500"></span> from <span id="owner_item_to_delete" class="text-orange-500"></span>?</p>
+
+                <button class="btn m-4" id="confirm_delete_btn">Yes, delete it</button>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn">Keep it</button>
+                    </form>
+                </div>
+        </dialog>
     </body>
     <script>
         console.log("Hello Gandhi User 🫵!\nIn case of error for the command you can manually edit the google sheet");
@@ -128,12 +140,34 @@
                                 <td>${fromUidToStr(order.item)}</td>
                                 <td>${order.quantity}</td>
                                 <td>${computePrice(priceMap.get(order.item), order.quantity) + "€"}</td>
+                                <td><div id=${order.id} dish="${fromUidToStr(order.item)}" owner="${capitalizeFirstLetter(order.owner)}" class="delete cursor-pointer opacity-20 hover:opacity-80 hover:text-red-900"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
+                                <path fill-rule="evenodd" d="M5 3.25V4H2.75a.75.75 0 0 0 0 1.5h.3l.815 8.15A1.5 1.5 0 0 0 5.357 15h5.285a1.5 1.5 0 0 0 1.493-1.35l.815-8.15h.3a.75.75 0 0 0 0-1.5H11v-.75A2.25 2.25 0 0 0 8.75 1h-1.5A2.25 2.25 0 0 0 5 3.25Zm2.25-.75a.75.75 0 0 0-.75.75V4h3v-.75a.75.75 0 0 0-.75-.75h-1.5ZM6.05 6a.75.75 0 0 1 .787.713l.275 5.5a.75.75 0 0 1-1.498.075l-.275-5.5A.75.75 0 0 1 6.05 6Zm3.9 0a.75.75 0 0 1 .712.787l-.275 5.5a.75.75 0 0 1-1.498-.075l.275-5.5a.75.75 0 0 1 .786-.711Z" clip-rule="evenodd" /></svg>
+                                </div></td>
                                 </tr>
                                 `;
                             previousOwner = order.owner;
-
                             return tr
                         }).join('');
+                        document.getElementById('all_orders').querySelectorAll('.delete').forEach(element => {
+                            element.addEventListener("click", function() {
+                                document.getElementById("item_to_delete").innerHTML = this.getAttribute("dish");
+                                document.getElementById("owner_item_to_delete").innerHTML = this.getAttribute("owner");
+                                document.getElementById("confirm_delete_modal").showModal();
+                                document.getElementById("confirm_delete_btn").onclick = function() {
+                                    const urlDelete = `https://n8n.yrieix.com/webhook/gandhi-delete-item?itemId=${element.id}`
+                                    fetch(urlDelete, {method: "POST"})
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.length > 0){
+                                                location.reload();
+                                            } else {
+                                                alert("Error while deleting the item, please try again or contact Yrieix");       
+                                            }
+                                        })
+                                }
+
+                            });
+                        });
 
 
                         const grouped = Object.entries(ordered.reduce((acc, curr) => {
@@ -165,11 +199,13 @@
                         document.getElementById('total-price').innerHTML = totalPrice + "€";
 
                         const nbDish = grouped.reduce((acc, curr) => acc + curr[1], 0);
+
                         document.getElementById('nb-dish').innerHTML = nbDish + " dishes";
                     })
             });
     </script>
     <script>
+        // CHAT TO SOPHIE
         fetch("https://n8n.yrieix.com/webhook/463e849d-1a72-43fe-8abb-aa18957816f6")
             .then(response => response.json())
             .then(data => {
